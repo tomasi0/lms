@@ -24,7 +24,7 @@ public class User implements UserDetails { // UserDetails 를 상속받아 사�
     @Column(name="user_id", length=100)
     private String userId;
     @Column(name="user_name", length=255, nullable = false)
-    private String userName;
+    private String userNameKor;
     @Column(name="email", length=255, nullable = false)
     private String email;
     @Column(name="password")
@@ -77,19 +77,19 @@ public class User implements UserDetails { // UserDetails 를 상속받아 사�
     @Column(name="upd_date")
     private LocalDateTime updatedAt;
 
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //return List.of(new SimpleGrantedAuthority("user"));
         return Collections.singletonList(new SimpleGrantedAuthority(authority.getAuthorityName()));
     }
 
+    // UserDetails 함수 Override
     @Override
     public String getPassword() {
         return password;
     }
 
+    // UserDetails 함수 Override, User 의 UserName 가 이름이 같아서 UserNameKor 로 변경함
     @Override
     public String getUsername() {
         return userId;

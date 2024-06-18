@@ -1,5 +1,7 @@
-package com.dw.lms.model;
+package com.dw.lms.model.CK;
 
+import com.dw.lms.model.User;
+import com.dw.lms.model.Lecture;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 

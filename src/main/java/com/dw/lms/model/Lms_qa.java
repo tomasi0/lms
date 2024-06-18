@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +21,7 @@ public class Lms_qa {
     @Column(name="category_id", length = 2)
     private String categoryId;
 
-    @Column(name="lms_qa_title", length = 100)
+    @Column(name="lms_qa_title", length = 100, nullable = false)
     private String lmsQaTitle;
 
     @ManyToOne
@@ -50,8 +49,7 @@ public class Lms_qa {
     @Column(name="upd_date")
     private LocalDateTime updDate;
 
-    @Column(name="lms_qa_content")
+    @Column(name="lms_qa_content", nullable = false)
     private String lmsQaContent;
-
 
 }

@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/lms_qa.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
 
     <!-- Google 폰트 => Poppins Embed code 사용 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet"
     />
 
     <title>LMS_qa</title>
@@ -20,35 +22,47 @@
 <body>
     <div class="container">
         <div id="header"></div>
-        <div class="layout">
-            <input type="text">
-            <textarea></textarea>
-            <button>검색</button>
+        <div class="root">
+            <div class="content">
+                <aside>
+                    <ul>
+                        <li><a href="lms_notices.html">공지사항</a></li>
+                        <li><a href="lms_qa.html" class="active">질의응답</a></li>
+                        <li><a href="lms_events.html">이벤트</a></li>
+                    </ul>
+                </aside>
+                <main>
+                    <h1>질의응답</h1>
+                    <div class="layout">
+                        <input type="text">
+                        <textarea></textarea>
+                        <button>Submit</button>
+                    </div>
+                    <div class="qa">
+                        <table class="qa-table">
+                            <thead>
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>카테고리</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>등록일</th>
+                                    <th>답변상태</th>
+                                </tr>
+                            </thead>
+                            <tbody class="qa-body">
+                    
+                            </tbody>
+                        </table>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </main>
+            </div>
         </div>
-        <div class="qa">
-            <table class="qa-table">
-              <thead>
-                <tr>
-                  <th>NO.</th>
-                  <th>카테고리</th>
-                  <th>제목</th>
-                  <th>작성자</th>
-                  <th>등록일</th>
-                  <th>답변상태</th>
-                </tr>
-              </thead>
-              <tbody class="qa-body">
-      
-              </tbody>
-            </table>
-            <div class="purchaseBtn">구매하기</div>
-            <div class="totalprice"></div>
-          </div>
-        
-
-
         <div id="footer"></div>
     </div>
-    
+
+    <script defer src="/js/lms_qa.js"></script>
 </body>
 </html>

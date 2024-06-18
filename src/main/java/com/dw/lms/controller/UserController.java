@@ -2,11 +2,14 @@ package com.dw.lms.controller;
 
 import com.dw.lms.dto.SessionDto;
 import com.dw.lms.dto.UserDto;
+import com.dw.lms.model.User;
+import com.dw.lms.repository.UserRepository;
 import com.dw.lms.service.UserDetailService;
 import com.dw.lms.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController // Rest API 사용
 @RequestMapping("/user")
 public class UserController {
@@ -24,6 +29,8 @@ public class UserController {
     private UserDetailService userDetailService;
     private AuthenticationManager authenticationManager;
     private HttpServletRequest httpServletRequest;
+    @Autowired
+    UserRepository userRepository;
 
     public UserController(UserService userService, UserDetailService userDetailService, AuthenticationManager authenticationManager, HttpServletRequest httpServletRequest) {
         this.userService = userService;
@@ -37,9 +44,22 @@ public class UserController {
         return new ResponseEntity<>(userService.saveUser(userDto), // 저장 Service 로 보냄
                 HttpStatus.CREATED); // CREATED => 201 리턴
     }
+//    회원 탈퇴
+//    @PostMapping("withdraw")
+//    public ResponseEntity<String> deleteUser(@RequestBody UserDto userDto){
+//        return new ResponseEntity<>(userService.deleteUser(userDto),HttpStatus.CREATED);
+//    }
+
 
     @PostMapping("login") // "/user/login" => @PostMapping("login") 에서 "/"를 붙이면 안됨
     public ResponseEntity<String> login(@RequestBody UserDto userDto, HttpServletRequest request) {
+
+        // actYn이 N일때 로그인 불가 2024.06.11 명준호
+        Optional<User> userOptional = userRepository.findByUserId(userDto.getUserId());
+        if (userOptional.isPresent() && userOptional.get().getActYn().equals("N")){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 거부되었습니다. 관리자에게 문의하세요.");
+        }
+
         Authentication authentication = authenticationManager.authenticate( // 보안 관련 코드이므로 바로 리턴
                 new UsernamePasswordAuthenticationToken(userDto.getUserId(), userDto.getPassword()) // 토큰을 만듦 (스프링 시큐리티 인증방식)
         );
@@ -64,7 +84,7 @@ public class UserController {
         return "You have been logged out.";
     }
 
-    @GetMapping("current") // 현재 세션의 주인의 정보를 알고 싶을때 사용
+    @GetMapping("current") // 현재 세션의 주인의 정보를 알고 싶을때 사용 // "/user/current"
     public SessionDto getCurrentUser() { // 리턴값 String 에서 SessionDto 로 변경
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -79,4 +99,15 @@ public class UserController {
         //return authentication.getName(); // 없는 경우 무명(anonymous), 있는 경우 유저네임
         return sessionDto; // 없는 경우 무명(anonymous), 있는 경우 유저네임 과 함께 권한도 같이 보냄
     }
+
+    @GetMapping("/id/{userId}")
+    public User getUserByUserId(@PathVariable String userId) {
+        return userService.getUserByUserId(userId);
+    }
+
+//    @GetMapping("/id/{userId}")
+//    public UserDto getUserSQLByUserId(@PathVariable String userId) {
+//        return userService.getUserSQLByUserId(userId);
+//    }
+
 }

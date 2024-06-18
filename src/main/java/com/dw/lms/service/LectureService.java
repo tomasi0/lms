@@ -14,6 +14,8 @@ public class LectureService {
     LectureRepository lectureRepository;
 
     public List<Lecture> getAllLecture() {
-        return lectureRepository.findAll();
+    		// findAll() 사용시 조회 순서가 오름차순, repository 에서 Query 를 사용하여 내림차순 조회로 수정
+        // List<Lecture> lecture = lectureRepository.findAll();
+        return lectureRepository.getAllLecture();
     }
 }

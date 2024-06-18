@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,10 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name="lms_events")
 public class Lms_events {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lms_events_seq")
     private Long lmsEventSeq;
 
@@ -24,7 +27,7 @@ public class Lms_events {
     @Column(name = "lms_events_title", length = 100)
     private String lmsEventsTitle;
 
-    @Column(name = "lms_events_content", length = 255)
+    @Column(name = "lms_events_content", length = 1500)
     private String lmsEventsContent;
 
     @Column(name = "lms_events_start_date")

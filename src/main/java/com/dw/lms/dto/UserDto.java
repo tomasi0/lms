@@ -1,5 +1,6 @@
 package com.dw.lms.dto;
 
+import com.dw.lms.model.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,4 +31,5 @@ public class UserDto { // Login Dto 2개(userId, password) 필요, Sign-up Dto 4
     private String consentToRiYn;
     private String actYn;
     private LocalDateTime updatedAt;
+    private Authority authority;
 }

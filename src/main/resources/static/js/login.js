@@ -10,28 +10,6 @@ let signupPassword = "";
 let signupUserName = "";
 let signupEmail = "";
 
-// 각 페이지별 #header와 #footer에 html파일 넣기
-function loadHtml() {
-  axios
-    .get("header.html")
-    .then((response) => {
-      document.getElementById("header").innerHTML = response.data;
-    })
-    .catch((error) => {
-      console.error("Header loading error:", error);
-    });
-  axios
-    .get("footer.html")
-    .then((response) => {
-      document.getElementById("footer").innerHTML = response.data;
-    })
-    .catch((error) => {
-      console.error("footer loading error:", error);
-    });
-}
-// 페이지가 로드될 때 header와 footer를 로드
-window.onload = loadHtml;
-
 /* login-box */
 /* input 이벤트를 사용 */
 document.querySelector("#userID").addEventListener("change", (e) => {
@@ -59,6 +37,7 @@ document.querySelector(".loginBtn").addEventListener("click", () => {
     })
     .catch((error) => {
       console.log("로그인 에러 발생: ", error);
+      alert("탈퇴 회원이거나, 잘못된 로그인 정보입니다.");
     });
 });
 
@@ -174,10 +153,11 @@ function sessionCurrent() {
       if (response.status == 200) {
         console.log("세션 유지");
         if (response.status == 200) {
-          document.querySelector(".login-box").classList.add("hidden");
-          document.querySelector(".user-box").classList.remove("hidden");
-          document.querySelector(".user-box p").textContent =
-            response.data.userId + "님, 환영합니다.";
+          // document.querySelector(".login-box").classList.add("hidden");
+          // document.querySelector(".user-box").classList.remove("hidden");
+          // document.querySelector(".user-box p").textContent =
+          //   response.data.userId + "님, 환영합니다.";
+          window.location.href = "main.html";
         }
       }
     })

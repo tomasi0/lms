@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@IdClass(com.dw.lms.model.Teacher_CK.class)
+@IdClass(com.dw.lms.model.CK.Teacher_CK.class)
 @Table(name="teacher")
 public class Teacher {
     @Id
