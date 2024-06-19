@@ -21,7 +21,7 @@ function loadHtml() {
   window.onload = loadHtml;
 
   document.addEventListener("DOMContentLoaded", function() {
-    axios.get('/api/questions')
+    axios.get('/api/qa/getAllItems')
         .then(function (response) {
             const questions = response.data;
             const questionList = document.getElementById('question-list');
