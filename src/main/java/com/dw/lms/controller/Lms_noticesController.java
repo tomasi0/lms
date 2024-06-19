@@ -18,7 +18,7 @@ public class Lms_noticesController {
         return service.getAllNotices(page, size);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public Lms_notices getNoticeById(@PathVariable Long id) {
         return service.getNoticeById(id);
     }
@@ -28,13 +28,13 @@ public class Lms_noticesController {
         return service.saveNotice(notice);
     }
 
-    @PutMapping("/id/{id}")
+    @PutMapping("/{id}")
     public Lms_notices updateNotice(@PathVariable Long id, @RequestBody Lms_notices notice) {
         notice.setLmsNoticesSeq(id);
         return service.saveNotice(notice);
     }
 
-    @DeleteMapping("/id/{id}")
+    @DeleteMapping("/{id}")
     public void deleteNotice(@PathVariable Long id) {
         service.deleteNotice(id);
     }

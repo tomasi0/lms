@@ -20,7 +20,26 @@ function loadHtml() {
   // 페이지가 로드될 때 header와 footer를 로드
   window.onload = loadHtml;
 
-function displayQa(qa) {
-    const tbody = document.querySelector(".qa-body");
-    
-}
+  document.addEventListener("DOMContentLoaded", function() {
+    axios.get('/api/questions')
+        .then(function (response) {
+            const questions = response.data;
+            const questionList = document.getElementById('question-list');
+            questionList.innerHTML = '';
+            questions.forEach(question => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${question.lmsQaSeq}</td>
+                    <td>${question.categoryId}</td>
+                    <td>${question.lmsQaTitle}</td>
+                    <td>${question.user.userName}</td>
+                    <td>${question.lmsQaWritingDate}</td>
+                    <td>${question.lmsQaAnswerCheck === 'Y' ? '완료' : '대기'}</td>
+                `;
+                questionList.appendChild(row);
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});

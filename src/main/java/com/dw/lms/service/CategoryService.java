@@ -1,5 +1,6 @@
 package com.dw.lms.service;
 
+import com.dw.lms.dto.LectureCategoryCountDto;
 import com.dw.lms.model.Category;
 import com.dw.lms.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import java.util.List;
 
 @Service
 public class CategoryService {
-
     @Autowired
     CategoryRepository categoryRepository;
 

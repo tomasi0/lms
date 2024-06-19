@@ -6,17 +6,10 @@
     <link rel="stylesheet" href="/css/lms_qa.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
-
-    <!-- Google 폰트 => Poppins Embed code 사용 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet"
-    />
-
-    <title>LMS_qa</title>
-    <!-- header 에 넣는 이유는 body 에서 사용해야 되기 때문에 미리 로드해야 함 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>질의응답</title>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js"></script>
 </head>
 <body>
@@ -33,36 +26,27 @@
                 </aside>
                 <main>
                     <h1>질의응답</h1>
-                    <div class="layout">
-                        <input type="text">
-                        <textarea></textarea>
-                        <button>Submit</button>
-                    </div>
-                    <div class="qa">
-                        <table class="qa-table">
-                            <thead>
-                                <tr>
-                                    <th>NO.</th>
-                                    <th>카테고리</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>등록일</th>
-                                    <th>답변상태</th>
-                                </tr>
-                            </thead>
-                            <tbody class="qa-body">
-                    
-                            </tbody>
-                        </table>
-                        <div></div>
-                        <div></div>
-                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>카테고리</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>등록일</th>
+                                <th>답변상태</th>
+                            </tr>
+                        </thead>
+                        <tbody id="question-list">
+                            <!-- 데이터가 여기에 삽입될 예정입니다 -->
+                        </tbody>
+                    </table>
                 </main>
             </div>
         </div>
         <div id="footer"></div>
     </div>
-
+    
     <script defer src="/js/lms_qa.js"></script>
 </body>
 </html>
