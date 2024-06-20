@@ -25,22 +25,38 @@
                     </ul>
                 </aside>
                 <main>
-                    <h1>질의응답</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>카테고리</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>등록일</th>
-                                <th>답변상태</th>
-                            </tr>
-                        </thead>
-                        <tbody id="question-list">
-                            <!-- 데이터가 여기에 삽입될 예정입니다 -->
-                        </tbody>
-                    </table>
+                    <div id="question-list-container">
+                        <h1>질의응답</h1>
+                        <table id="question-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>카테고리</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>등록일</th>
+                                    <th>답변상태</th>
+                                </tr>
+                            </thead>
+                            <tbody id="question-list">
+                                <!-- 동적으로 내용이 삽입될 부분 -->
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button id="prev-page"><</button>
+                            <span id="page-numbers"></span>
+                            <button id="next-page">></button>
+                        </div>
+                    </div>
+            
+                    <!-- 상세 내용 표시 -->
+                    <div id="question-detail" class="question-detail" style="display: none;">
+                        <h2 id="detail-title"></h2>
+                        <p><strong>작성자:</strong> <span id="detail-writer"></span></p>
+                        <p><strong>작성일:</strong> <span id="detail-date"></span></p>
+                        <p id="detail-content"></p>
+                        <button id="back-to-list">목록으로 돌아가기</button>
+                    </div>
                 </main>
             </div>
         </div>
