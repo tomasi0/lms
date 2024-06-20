@@ -1,12 +1,13 @@
 package com.dw.lms.controller;
 
+import com.dw.lms.model.Course_registration;
 import com.dw.lms.model.Learning_contents;
+import com.dw.lms.repository.LearningContentsRepository;
 import com.dw.lms.service.LearningContentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,10 +23,4 @@ public class LearningContentsController {
         return new ResponseEntity<>(learningContentsService.getAllContents(),
                 HttpStatus.OK);
     }
-
-    @GetMapping("/learning/contents/{lectureId}")
-    public ResponseEntity<List<Learning_contents>>getContentsByLectureId(@PathVariable String lectureId){
-        return new ResponseEntity<>(learningContentsService.getContentsByLectureId(lectureId),HttpStatus.OK);
-    }
-
 }

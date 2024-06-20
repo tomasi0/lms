@@ -29,9 +29,6 @@ public class Code_class_detail {
   @Column(name = "code_name", length = 100)
   private String codeName;
 
-  @Column(name = "sort_seq")
-  private Long sortSeq;
-
   @Column(name = "sys_date", updatable = false)
   private LocalDateTime sysDate;
 

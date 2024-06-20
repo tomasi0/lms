@@ -1,6 +1,8 @@
 package com.dw.lms.controller;
 
+import com.dw.lms.model.Course_registration;
 import com.dw.lms.model.Learning_review;
+import com.dw.lms.repository.LearningReviewRepository;
 import com.dw.lms.service.LearningReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,4 @@ public class LearningReviewController {
         return new ResponseEntity<>(learningReviewService.getAllReview(),
                 HttpStatus.OK);
     }
-
-
-
 }
