@@ -1,5 +1,6 @@
 package com.dw.lms.service;
 
+import com.dw.lms.dto.AnswerDto;
 import com.dw.lms.model.Lms_qa;
 import com.dw.lms.repository.Lms_qaRepository;
 import com.dw.lms.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,5 +40,15 @@ public class Lms_qaService {
         lms_qaRepository.deleteById(id);
     }
 
+    public Lms_qa answerQuestion(Long id, AnswerDto answerDto) {
+        Lms_qa question = lms_qaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid question ID"));
+
+        question.setLmsQaAnswerContent(answerDto.getLmsQaAnswerContent());
+        question.setLmsQaAnswerWriter(answerDto.getLmsQaAnswerWriter());
+        question.setLmsQaAnswerDate(LocalDate.parse(answerDto.getLmsQaAnswerDate()));
+        question.setLmsQaAnswerCheck(answerDto.getLmsQaAnswerCheck());
+
+        return lms_qaRepository.save(question);
+    }
 
 }

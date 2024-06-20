@@ -55,8 +55,22 @@
                         <p><strong>작성자:</strong> <span id="detail-writer"></span></p>
                         <p><strong>작성일:</strong> <span id="detail-date"></span></p>
                         <p id="detail-content"></p>
+
+                        <!-- 답변 섹션 -->
+                        <div id="answer-section"></div>
+
+                        <!-- 답변 입력 폼 (관리자 전용) -->
+                        <div id="admin-response-form" style="display: none;">
+                            <h3>답변 달기</h3>
+                            <textarea id="response-content" rows="4" cols="50"></textarea>
+                            <button id="submit-response">답변 제출</button>
+                        </div>
+
                         <button id="back-to-list">목록으로 돌아가기</button>
                     </div>
+
+                    <!-- 답변하기 버튼 (관리자 전용) -->
+                    <button id="reply-button" style="display: none; margin-top: 20px;">답변하기</button>
                 </main>
             </div>
         </div>

@@ -96,3 +96,110 @@ th {
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
+/* 페이징 스타일 */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination span:hover {
+    text-decoration: underline;
+}
+
+/* 상세보기 스타일 */
+#question-detail {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#question-detail h2 {
+    margin-top: 0;
+}
+
+#question-detail p {
+    margin: 10px 0;
+}
+
+#question-detail button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#question-detail button:hover {
+    background-color: #0056b3;
+}
+
+/* 관리자 답변 폼 스타일 */
+#admin-response-form {
+    margin-top: 20px;
+    display: none;
+}
+
+#admin-response-form textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+#admin-response-form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#admin-response-form button:hover {
+    background-color: #218838;
+}
+
+/* 답변하기 버튼 스타일 */
+#reply-button {
+    display: none;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#reply-button:hover {
+    background-color: #0056b3;
+}

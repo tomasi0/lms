@@ -1,5 +1,6 @@
 package com.dw.lms.controller;
 
+import com.dw.lms.dto.AnswerDto;
 import com.dw.lms.model.Lms_qa;
 import com.dw.lms.service.Lms_qaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +43,11 @@ public class Lms_qaController {
     @DeleteMapping("/{id}")
     public void deleteQuestion(@PathVariable Long id) {
         lms_qaService.deleteQuestion(id);
+    }
+
+    @PostMapping("/{id}/answer")
+    public Lms_qa answerQuestion(@PathVariable Long id, @RequestBody AnswerDto answerDto) {
+        return lms_qaService.answerQuestion(id, answerDto);
     }
 
 
