@@ -30,12 +30,13 @@ function loadHtml() {
       const pageNumbersSpan = document.getElementById('page-numbers');
       const questionDetail = document.getElementById('notice-detail');
       const questionListContainer = document.getElementById('notice-table');
+      const paginationContainer = document.querySelector('.pagination');
       const backToListBtn = document.getElementById('back-to-list');
       const adminResponseForm = document.getElementById('admin-response-form');
       const responseContent = document.getElementById('response-content');
       const submitResponseBtn = document.getElementById('submit-response');
-      const answerSection = document.getElementById('answer-section'); // 답변 섹션
-      const deleteQuestionBtn = document.getElementById('delete-question'); // 삭제 버튼
+      const answerSection = document.getElementById('answer-section');
+      const deleteQuestionBtn = document.getElementById('delete-question');
   
       let currentQuestionId = null;
   
@@ -139,6 +140,7 @@ function loadHtml() {
   
                   questionDetail.style.display = 'block';
                   questionListContainer.style.display = 'none';
+                  paginationContainer.style.display = 'none'; // 페이지네이션 숨기기
               })
               .catch(error => {
                   console.error('Error:', error);
@@ -182,6 +184,7 @@ function loadHtml() {
                   alert('게시글이 성공적으로 삭제되었습니다.');
                   questionDetail.style.display = 'none';
                   questionListContainer.style.display = 'block';
+                  paginationContainer.style.display = 'block'; // 페이지네이션 보이기
                   loadQuestions(currentPage); // 목록 갱신
               })
               .catch(error => {
@@ -193,6 +196,7 @@ function loadHtml() {
       backToListBtn.addEventListener('click', () => {
           questionDetail.style.display = 'none';
           questionListContainer.style.display = 'block';
+          paginationContainer.style.display = 'block'; // 페이지네이션 보이기
       });
   
       prevPageBtn.addEventListener('click', () => {
