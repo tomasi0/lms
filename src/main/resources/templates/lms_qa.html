@@ -25,7 +25,8 @@
                     </ul>
                 </aside>
                 <main>
-                    <h1>공지사항</h1>
+                    <h1>질의응답</h1>
+                    <button id="new-question-btn">새 게시글 작성</button>
                     <table id="notice-table">
                         <thead>
                             <tr>
@@ -34,7 +35,7 @@
                                 <th>제목</th>
                                 <th>작성자</th>
                                 <th>등록일</th>
-                                <th>조회</th>
+                                <th>답변상태</th>
                             </tr>
                         </thead>
                         <tbody id="notice-list">
@@ -46,20 +47,30 @@
                         <span id="page-numbers"></span>
                         <button id="next-page">></button>
                     </div>
+                    
+                    <!-- 게시글 작성 폼 -->
+                    <div id="question-form" class="question-form" style="display: none;">
+                        <h2>새 게시글 작성</h2>
+                        <label for="new-question-title">제목:</label>
+                        <input type="text" id="new-question-title">
+                        <label for="new-question-content">내용:</label>
+                        <textarea id="new-question-content"></textarea>
+                        <button id="submit-question">작성 완료</button>
+                        <button id="cancel-question">취소</button>
+                    </div>
             
                     <!-- 상세 내용 표시 -->
                     <div id="notice-detail" class="notice-detail" style="display: none;">
                         <h2 id="detail-title"></h2>
                         <p><strong>작성자:</strong> <span id="detail-writer"></span></p>
                         <p><strong>작성일:</strong> <span id="detail-date"></span></p>
-                        <p><strong>조회수:</strong> <span id="detail-views"></span></p>
                         <p id="detail-content"></p>
+                        <div id="answer-section"></div>
                         <div id="admin-response-form" style="display: none;">
                             <textarea id="response-content" placeholder="답변 내용을 입력하세요"></textarea>
                             <button id="submit-response">답변 제출</button>
                         </div>
                         <button id="delete-question" style="display: none;">게시글 삭제</button>
-                        <div id="answer-section"></div>
                         <button id="back-to-list">목록</button>
                     </div>
                 </main>

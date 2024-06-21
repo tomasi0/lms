@@ -37,6 +37,12 @@ function loadHtml() {
       const submitResponseBtn = document.getElementById('submit-response');
       const answerSection = document.getElementById('answer-section');
       const deleteQuestionBtn = document.getElementById('delete-question');
+      const newQuestionBtn = document.getElementById('new-question-btn');
+      const questionForm = document.getElementById('question-form');
+      const submitQuestionBtn = document.getElementById('submit-question');
+      const cancelQuestionBtn = document.getElementById('cancel-question');
+      const newQuestionTitle = document.getElementById('new-question-title');
+      const newQuestionContent = document.getElementById('new-question-content');
   
       let currentQuestionId = null;
   
@@ -110,6 +116,9 @@ function loadHtml() {
                           loadQuestionDetails(questionId);
                       });
                   });
+  
+                  // 새 질문 버튼 표시
+                  newQuestionBtn.style.display = 'block';
               })
               .catch(error => {
                   console.error('Error:', error);
@@ -141,14 +150,12 @@ function loadHtml() {
                   questionDetail.style.display = 'block';
                   questionListContainer.style.display = 'none';
                   paginationContainer.style.display = 'none'; // 페이지네이션 숨기기
+                  newQuestionBtn.style.display = 'none'; // 새 질문 버튼 숨기기
               })
               .catch(error => {
                   console.error('Error:', error);
               });
       }
-  
-      submitResponseBtn.addEventListener('click', submitResponse);
-      deleteQuestionBtn.addEventListener('click', deleteQuestion);
   
       function submitResponse() {
           const content = responseContent.value;
@@ -185,6 +192,7 @@ function loadHtml() {
                   questionDetail.style.display = 'none';
                   questionListContainer.style.display = 'block';
                   paginationContainer.style.display = 'block'; // 페이지네이션 보이기
+                  newQuestionBtn.style.display = 'block'; // 새 질문 버튼 보이기
                   loadQuestions(currentPage); // 목록 갱신
               })
               .catch(error => {
@@ -193,12 +201,61 @@ function loadHtml() {
               });
       }
   
+      function showQuestionForm() {
+          questionForm.style.display = 'block';
+          questionListContainer.style.display = 'none';
+          paginationContainer.style.display = 'none';
+          newQuestionBtn.style.display = 'none'; // 새 질문 버튼 숨기기
+      }
+  
+      function hideQuestionForm() {
+          questionForm.style.display = 'none';
+          questionListContainer.style.display = 'block';
+          paginationContainer.style.display = 'block';
+          newQuestionBtn.style.display = 'block'; // 새 질문 버튼 보이기
+      }
+  
+      function submitQuestion() {
+          const title = newQuestionTitle.value;
+          const content = newQuestionContent.value;
+  
+          if (!title || !content) {
+              alert('제목과 내용을 입력해주세요.');
+              return;
+          }
+  
+          const url = `/api/qa`;
+          const data = {
+              lmsQaTitle: title,
+              lmsQaContent: content,
+              lmsQaWritingDate: new Date().toISOString().split('T')[0]
+          };
+  
+          axios.post(url, data)
+              .then(response => {
+                  alert('게시글이 성공적으로 등록되었습니다.');
+                  newQuestionTitle.value = '';
+                  newQuestionContent.value = '';
+                  hideQuestionForm();
+                  loadQuestions(currentPage); // 목록 갱신
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert('게시글 등록에 실패했습니다.');
+              });
+      }
+  
+      newQuestionBtn.addEventListener('click', showQuestionForm);
+      submitQuestionBtn.addEventListener('click', submitQuestion);
+      cancelQuestionBtn.addEventListener('click', hideQuestionForm);
+      submitResponseBtn.addEventListener('click', submitResponse);
+      deleteQuestionBtn.addEventListener('click', deleteQuestion);
       backToListBtn.addEventListener('click', () => {
           questionDetail.style.display = 'none';
           questionListContainer.style.display = 'block';
           paginationContainer.style.display = 'block'; // 페이지네이션 보이기
+          newQuestionBtn.style.display = 'block'; // 새 질문 버튼 보이기
       });
-  
       prevPageBtn.addEventListener('click', () => {
           if (currentPage > 1) {
               currentPage--;
