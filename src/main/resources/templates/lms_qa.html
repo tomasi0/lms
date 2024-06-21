@@ -25,52 +25,43 @@
                     </ul>
                 </aside>
                 <main>
-                    <div id="question-list-container">
-                        <h1>질의응답</h1>
-                        <table id="question-table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>카테고리</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>등록일</th>
-                                    <th>답변상태</th>
-                                </tr>
-                            </thead>
-                            <tbody id="question-list">
-                                <!-- 동적으로 내용이 삽입될 부분 -->
-                            </tbody>
-                        </table>
-                        <div class="pagination">
-                            <button id="prev-page"><</button>
-                            <span id="page-numbers"></span>
-                            <button id="next-page">></button>
-                        </div>
+                    <h1>공지사항</h1>
+                    <table id="notice-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>카테고리</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>등록일</th>
+                                <th>조회</th>
+                            </tr>
+                        </thead>
+                        <tbody id="notice-list">
+                            <!-- 동적으로 내용이 삽입될 부분 -->
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <button id="prev-page"><</button>
+                        <span id="page-numbers"></span>
+                        <button id="next-page">></button>
                     </div>
             
                     <!-- 상세 내용 표시 -->
-                    <div id="question-detail" class="question-detail" style="display: none;">
+                    <div id="notice-detail" class="notice-detail" style="display: none;">
                         <h2 id="detail-title"></h2>
                         <p><strong>작성자:</strong> <span id="detail-writer"></span></p>
                         <p><strong>작성일:</strong> <span id="detail-date"></span></p>
+                        <p><strong>조회수:</strong> <span id="detail-views"></span></p>
                         <p id="detail-content"></p>
-
-                        <!-- 답변 섹션 -->
-                        <div id="answer-section"></div>
-
-                        <!-- 답변 입력 폼 (관리자 전용) -->
                         <div id="admin-response-form" style="display: none;">
-                            <h3>답변 달기</h3>
-                            <textarea id="response-content" rows="4" cols="50"></textarea>
+                            <textarea id="response-content" placeholder="답변 내용을 입력하세요"></textarea>
                             <button id="submit-response">답변 제출</button>
                         </div>
-
-                        <button id="back-to-list">목록으로 돌아가기</button>
+                        <button id="delete-question" style="display: none;">게시글 삭제</button>
+                        <div id="answer-section"></div>
+                        <button id="back-to-list">목록</button>
                     </div>
-
-                    <!-- 답변하기 버튼 (관리자 전용) -->
-                    <button id="reply-button" style="display: none; margin-top: 20px;">답변하기</button>
                 </main>
             </div>
         </div>

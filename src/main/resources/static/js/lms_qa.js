@@ -24,18 +24,18 @@ function loadHtml() {
   const questionsPerPage = 5;
   
   document.addEventListener('DOMContentLoaded', async function() {
-      const questionTableBody = document.getElementById('question-list');
+      const questionTableBody = document.getElementById('notice-list');
       const prevPageBtn = document.getElementById('prev-page');
       const nextPageBtn = document.getElementById('next-page');
       const pageNumbersSpan = document.getElementById('page-numbers');
-      const questionDetail = document.getElementById('question-detail');
-      const questionListContainer = document.getElementById('question-list-container');
+      const questionDetail = document.getElementById('notice-detail');
+      const questionListContainer = document.getElementById('notice-table');
       const backToListBtn = document.getElementById('back-to-list');
       const adminResponseForm = document.getElementById('admin-response-form');
       const responseContent = document.getElementById('response-content');
       const submitResponseBtn = document.getElementById('submit-response');
-      const replyButton = document.getElementById('reply-button');
       const answerSection = document.getElementById('answer-section'); // 답변 섹션
+      const deleteQuestionBtn = document.getElementById('delete-question'); // 삭제 버튼
   
       let currentQuestionId = null;
   
@@ -43,7 +43,8 @@ function loadHtml() {
       const isAdmin = userRoles.includes('ROLE_ADMIN');
   
       if (isAdmin) {
-          replyButton.style.display = 'block';
+          adminResponseForm.style.display = 'block';
+          deleteQuestionBtn.style.display = 'block'; // ROLE_ADMIN일 경우 삭제 버튼 보이기
       }
   
       async function getUserRoles() {
@@ -65,8 +66,9 @@ function loadHtml() {
           const url = `/api/qa/getAllItems?page=${page - 1}&size=${questionsPerPage}`;
           axios.get(url)
               .then(response => {
-                  const questions = response.data.content;
-                  const totalPages = response.data.totalPages;
+                  const questionsPage = response.data;
+                  const questions = questionsPage.content;
+                  const totalPages = questionsPage.totalPages;
                   questionTableBody.innerHTML = '';
                   questions.forEach((question, index) => {
                       const row = document.createElement('tr');
@@ -135,14 +137,6 @@ function loadHtml() {
                       answerSection.innerHTML = '';
                   }
   
-                  if (isAdmin) {
-                      adminResponseForm.style.display = 'block';
-                      replyButton.style.display = 'block';
-                  } else {
-                      adminResponseForm.style.display = 'none';
-                      replyButton.style.display = 'none';
-                  }
-  
                   questionDetail.style.display = 'block';
                   questionListContainer.style.display = 'none';
               })
@@ -151,12 +145,8 @@ function loadHtml() {
               });
       }
   
-      replyButton.addEventListener('click', () => {
-          adminResponseForm.style.display = 'block';
-          replyButton.style.display = 'none';
-      });
-  
       submitResponseBtn.addEventListener('click', submitResponse);
+      deleteQuestionBtn.addEventListener('click', deleteQuestion);
   
       function submitResponse() {
           const content = responseContent.value;
@@ -169,8 +159,7 @@ function loadHtml() {
           const data = {
               lmsQaAnswerContent: content,
               lmsQaAnswerWriter: '관리자', // 실제 구현에서는 로그인된 관리자 이름을 사용해야 합니다.
-              lmsQaAnswerDate: new Date().toISOString().split('T')[0], // 현재 날짜를 ISO 형식으로 변환
-              lmsQaAnswerCheck: 'Y'
+              lmsQaAnswerDate: new Date().toISOString().split('T')[0]
           };
   
           axios.post(url, data)
@@ -178,10 +167,26 @@ function loadHtml() {
                   alert('답변이 성공적으로 등록되었습니다.');
                   responseContent.value = '';
                   loadQuestionDetails(currentQuestionId); // 답변 후 질문 상세 정보 다시 로드
+                  loadQuestions(currentPage); // 목록 갱신
               })
               .catch(error => {
                   console.error('Error:', error);
                   alert('답변 등록에 실패했습니다.');
+              });
+      }
+  
+      function deleteQuestion() {
+          const url = `/api/qa/${currentQuestionId}`;
+          axios.delete(url)
+              .then(response => {
+                  alert('게시글이 성공적으로 삭제되었습니다.');
+                  questionDetail.style.display = 'none';
+                  questionListContainer.style.display = 'block';
+                  loadQuestions(currentPage); // 목록 갱신
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert('게시글 삭제에 실패했습니다.');
               });
       }
   

@@ -1,6 +1,7 @@
 package com.dw.lms.controller;
 
 import com.dw.lms.dto.AnswerDto;
+import com.dw.lms.dto.StatusUpdateDto;
 import com.dw.lms.model.Lms_qa;
 import com.dw.lms.service.Lms_qaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,15 @@ public class Lms_qaController {
         lms_qaService.deleteQuestion(id);
     }
 
+
     @PostMapping("/{id}/answer")
     public Lms_qa answerQuestion(@PathVariable Long id, @RequestBody AnswerDto answerDto) {
         return lms_qaService.answerQuestion(id, answerDto);
+    }
+
+    @PutMapping("/{id}/updateStatus")
+    public Lms_qa updateQuestionStatus(@PathVariable Long id, @RequestBody StatusUpdateDto statusUpdateDto) {
+        return lms_qaService.updateQuestionStatus(id, statusUpdateDto);
     }
 
 
