@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,17 +25,18 @@ public class Lms_qaService {
 //    public Page<Lms_qa> getQuestions(int page, int size) {
 //        return lms_qaRepository.findAll(PageRequest.of(page, size));
 //    }
-    public Page<Lms_qa> getQuestions(int page, int size) {
-        Page<Lms_qa> questionsPage = lms_qaRepository.findAll(PageRequest.of(page, size));
-        for (Lms_qa question : questionsPage) {
-            if (question.getLmsQaAnswerContent() != null && !question.getLmsQaAnswerContent().isEmpty()) {
-                question.setLmsQaAnswerCheck("Y");
-            } else {
-                question.setLmsQaAnswerCheck("N");
-            }
+public Page<Lms_qa> getQuestions(int page, int size) {
+    // PageRequest에 Sort.by(Sort.Direction.DESC, "lmsQaSeq")를 추가하여 최신순으로 정렬
+    Page<Lms_qa> questionsPage = lms_qaRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "lmsQaSeq")));
+    for (Lms_qa question : questionsPage) {
+        if (question.getLmsQaAnswerContent() != null && !question.getLmsQaAnswerContent().isEmpty()) {
+            question.setLmsQaAnswerCheck("Y");
+        } else {
+            question.setLmsQaAnswerCheck("N");
         }
-        return questionsPage;
     }
+    return questionsPage;
+}
 
     public List<Lms_qa> getAllQuestions() {
         return lms_qaRepository.findAll();
@@ -75,5 +77,4 @@ public class Lms_qaService {
 
         return lms_qaRepository.save(question);
     }
-
 }

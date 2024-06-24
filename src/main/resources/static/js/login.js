@@ -34,6 +34,7 @@ document.querySelector(".loginBtn").addEventListener("click", () => {
     .then((response) => {
       console.log("로그인 데이터: ", response.data);
       sessionCurrent();
+      window.location.href = "main.html";
     })
     .catch((error) => {
       console.log("로그인 에러 발생: ", error);
@@ -126,9 +127,9 @@ document
     document.querySelector(".signup-box").classList.add("hidden"); // 회원가입 box 안보이도록
   });
 
-/* 로그아웃 */
+  /* 로그아웃 */
 document.querySelector(".logoutBtn").addEventListener("click", () => {
-  if (confirm("로그아웃 하시겠습니까?")) {
+  // if (confirm("로그아웃 하시겠습니까?")) {
     axios
       .post(urlLogout, {}, { withCredentials: true })
       .then((response) => {
@@ -141,7 +142,19 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
       .catch((error) => {
         console.log("에러 발생: ", error);
       });
-  }
+  // }
+});
+
+/* 입장 */
+document.querySelector('.connectBtn').addEventListener('click', function() {
+  // 페이지 이동을 위한 URL 설정
+  var url = 'main.html'; // main.html로 이동
+  
+  // 현재 창에서 페이지를 열기
+  window.location.href = url;
+  
+  // 혹은 새로운 탭에서 열기
+  // window.open(url, '_blank');
 });
 
 /* 세션확인 */
@@ -153,11 +166,12 @@ function sessionCurrent() {
       if (response.status == 200) {
         console.log("세션 유지");
         if (response.status == 200) {
-          // document.querySelector(".login-box").classList.add("hidden");
-          // document.querySelector(".user-box").classList.remove("hidden");
-          // document.querySelector(".user-box p").textContent =
-          //   response.data.userId + "님, 환영합니다.";
-          window.location.href = "main.html";
+          document.querySelector(".login-box").classList.add("hidden");
+          document.querySelector(".user-box").classList.remove("hidden");
+          document.querySelector(".user-box p").textContent =
+            "로그아웃 하시겠습니까?";
+            //response.data.userId + "님, 환영합니다.";
+          //window.location.href = "main.html";
         }
       }
     })

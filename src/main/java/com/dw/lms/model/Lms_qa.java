@@ -29,8 +29,8 @@ public class Lms_qa {
 
     @ManyToOne
     @JoinColumn(name="lms_qa_writer")
-//    private User user;
-    private User userId;
+    private User user;
+//    private User userId;
 
     @Column(name="lms_qa_writing_date")
     private LocalDate lmsQaWritingDate;

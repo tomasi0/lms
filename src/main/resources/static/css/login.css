@@ -94,7 +94,9 @@ input:not(:placeholder-shown) {
 
 /* 회원등록, 닫기버튼 클래스 */
 .registrationBtn,
-.registrationCloseBtn {
+.registrationCloseBtn,
+.connectBtn,
+.logoutBtn {
   width: 150px;
   height: 40px;
   /* background-color: dodgerblue; */
@@ -106,13 +108,15 @@ input:not(:placeholder-shown) {
   line-height: 35px;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0 10px;
+  margin: 20px 10px 0px 10px;
 }
 
 .loginBtn:hover,
 .signupBtn:hover,
 .registrationBtn:hover,
-.registrationCloseBtn:hover {
+.registrationCloseBtn:hover,
+.connectBtn:hover,
+.logoutBtn:hover {
   background-color: lightblue;
   color: dodgerblue;
 }

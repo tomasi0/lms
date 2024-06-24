@@ -32,6 +32,10 @@ public class Lms_qaController {
 
     @PostMapping("/newQuestion")
     public Lms_qa createQuestion(@RequestBody Lms_qa lms_qa) {
+
+        System.out.println("qa writer: " + lms_qa.getUser().getUserId());
+        System.out.println("qa contents: " + lms_qa.getLmsQaContent());
+
         return lms_qaService.saveQuestion(lms_qa);
     }
 
