@@ -44,8 +44,8 @@ public class Lms_qaService {
         return lms_qaRepository.findById(id);
     }
 
-    public Lms_qa saveQuestion(Lms_qa lmsQa) {
-        return lms_qaRepository.save(lmsQa);
+    public Lms_qa saveQuestion(Lms_qa lms_qa) {
+        return lms_qaRepository.save(lms_qa);
     }
 
     public void deleteQuestion(Long id) {
@@ -75,10 +75,5 @@ public class Lms_qaService {
 
         return lms_qaRepository.save(question);
     }
-
-
-
-
-
 
 }

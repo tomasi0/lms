@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Table(name="lms_qa")
 public class Lms_qa {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lms_qa_seq")
     private Long lmsQaSeq;
 
@@ -28,7 +29,8 @@ public class Lms_qa {
 
     @ManyToOne
     @JoinColumn(name="lms_qa_writer")
-    private User user;
+//    private User user;
+    private User userId;
 
     @Column(name="lms_qa_writing_date")
     private LocalDate lmsQaWritingDate;

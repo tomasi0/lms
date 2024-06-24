@@ -30,15 +30,15 @@ public class Lms_qaController {
         return lms_qaService.getQuestionById(id);
     }
 
-    @PostMapping
-    public Lms_qa createQuestion(@RequestBody Lms_qa lmsQa) {
-        return lms_qaService.saveQuestion(lmsQa);
+    @PostMapping("/newQuestion")
+    public Lms_qa createQuestion(@RequestBody Lms_qa lms_qa) {
+        return lms_qaService.saveQuestion(lms_qa);
     }
 
     @PutMapping("/{id}")
-    public Lms_qa updateQuestion(@PathVariable Long id, @RequestBody Lms_qa lmsQa) {
-        lmsQa.setLmsQaSeq(id);
-        return lms_qaService.saveQuestion(lmsQa);
+    public Lms_qa updateQuestion(@PathVariable Long id, @RequestBody Lms_qa lms_qa) {
+        lms_qa.setLmsQaSeq(id);
+        return lms_qaService.saveQuestion(lms_qa);
     }
 
     @DeleteMapping("/{id}")
