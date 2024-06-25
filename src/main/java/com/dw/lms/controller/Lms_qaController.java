@@ -31,12 +31,14 @@ public class Lms_qaController {
     }
 
     @PostMapping("/newQuestion")
-    public Lms_qa createQuestion(@RequestBody Lms_qa lms_qa) {
+    public ResponseEntity<Lms_qa> createQuestion(@RequestBody Lms_qa lms_qa) {
+        // 사용자 객체가 제대로 매핑되었는지 확인합니다.
+        if (lms_qa.getUser() == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
 
-        System.out.println("qa writer: " + lms_qa.getUser().getUserId());
-        System.out.println("qa contents: " + lms_qa.getLmsQaContent());
-
-        return lms_qaService.saveQuestion(lms_qa);
+        Lms_qa savedQuestion = lms_qaService.saveQuestion(lms_qa);
+        return ResponseEntity.ok(savedQuestion);
     }
 
     @PutMapping("/{id}")

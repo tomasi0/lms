@@ -249,51 +249,67 @@ document.addEventListener('DOMContentLoaded', async function() {
     //         });
     // }
     // 주석처리된 위 코드는 아래코드가 정상작동한다면 삭제
-    async function submitQuestion() {
-        const title = newQuestionTitle.value;
-        const content = newQuestionContent.value;
-        const category = newQuestionCategory.value;
-    
-        if (!title || !content || !category) {
-            alert('카테고리, 제목, 그리고 내용을 입력해주세요.');
-            return;
-        }
-    
-        let currentUser;
-        try {
-            const response = await axios.get('/user/current');
-            currentUser = response.data;
-        } catch (error) {
-            console.error('Error fetching current user:', error);
-            alert('현재 사용자 정보를 가져오는 데 실패했습니다.');
-            return;
-        }
-    
-        const url = `/api/qa/newQuestion`;
-        const data = {
-            lmsQaTitle: title,
-            lmsQaContent: content,
-            categoryId: category,
-            lmsQaWritingDate: new Date().toISOString().split('T')[0],
-            user: {
-                userId: currentUser.userId,
-                userNameKor: currentUser.userNameKor
-            }
-        };
-    
-        axios.post(url, data)
-            .then(response => {
-                alert('게시글이 성공적으로 등록되었습니다.');
-                newQuestionTitle.value = '';
-                newQuestionContent.value = '';
-                hideQuestionForm();
-                loadQuestions(currentPage); // 목록 갱신
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('게시글 등록에 실패했습니다.');
-            });
+async function submitQuestion() {
+    const title = newQuestionTitle.value;
+    const content = newQuestionContent.value;
+    const category = newQuestionCategory.value;
+
+    if (!title || !content || !category) {
+        alert('카테고리, 제목, 그리고 내용을 입력해주세요.');
+        return;
     }
+
+    let currentUser;
+    try {
+        const response = await axios.get('/user/current');
+        currentUser = response.data;
+    } catch (error) {
+        console.error('Error fetching current user:', error);
+        alert('현재 사용자 정보를 가져오는 데 실패했습니다.');
+        return;
+    }
+
+    const url = `/api/qa/newQuestion`;
+    const data = {
+        lmsQaTitle: title,
+        lmsQaContent: content,
+        categoryId: category,
+        lmsQaWritingDate: new Date().toISOString().split('T')[0],
+        user: {
+            userId: currentUser.userId, // currentUser에서 적절한 필드 사용
+            userNameKor: currentUser.userNameKor
+        },
+        lmsQaAnswerContent: "",  // 초기값
+        lmsQaAnswerWriter: "",
+        lmsQaAnswerDate: null,
+        lmsQaAnswerCheck: "N",
+        sysDate: new Date().toISOString(),
+        updDate: new Date().toISOString()
+    };
+
+    axios.post(url, data)
+    .then(response => {
+        console.log('newQuestion Response:', response); // 응답 출력
+        console.log("newQuestion Status: " + response.status)
+        alert('게시글이 성공적으로 등록되었습니다.');
+        newQuestionTitle.value = '';
+        newQuestionContent.value = '';
+        hideQuestionForm();
+        loadQuestions(currentPage); // 목록 갱신
+    })
+    .catch(error => {
+        if (error.response) {
+            console.error('Error response data:', error.response.data); // 서버 응답 데이터 출력
+            console.error('Error response status:', error.response.status); // 서버 응답 상태 출력
+            console.error('Error response headers:', error.response.headers); // 서버 응답 헤더 출력
+        } else if (error.request) {
+            console.error('Error request:', error.request); // 요청 데이터 출력
+        } else {
+            console.error('General error:', error.message); // 일반 오류 메시지 출력
+        }
+        alert('게시글 등록에 실패했습니다.');
+    });
+}
 
 
     newQuestionBtn.addEventListener('click', showQuestionForm);

@@ -5,7 +5,8 @@ import com.dw.lms.dto.StatusUpdateDto;
 import com.dw.lms.model.Lms_qa;
 import com.dw.lms.repository.Lms_qaRepository;
 import com.dw.lms.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import com.dw.lms.model.User;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,9 @@ import java.util.Optional;
 public class Lms_qaService {
     @Autowired
     private Lms_qaRepository lms_qaRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 //    public Page<Lms_qa> getQuestions(int page, int size) {
 //        return lms_qaRepository.findAll(PageRequest.of(page, size));
@@ -38,15 +42,19 @@ public Page<Lms_qa> getQuestions(int page, int size) {
     return questionsPage;
 }
 
-    public List<Lms_qa> getAllQuestions() {
-        return lms_qaRepository.findAll();
-    }
-
     public Optional<Lms_qa> getQuestionById(Long id) {
         return lms_qaRepository.findById(id);
     }
 
     public Lms_qa saveQuestion(Lms_qa lms_qa) {
+
+        //System.out.println("getUserId: " + lms_qa.getUser().getUserId());
+
+        User inputUser = userRepository.findByUserId(lms_qa.getUser().getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        lms_qa.setUser(inputUser);
+
         return lms_qaRepository.save(lms_qa);
     }
 
