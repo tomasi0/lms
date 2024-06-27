@@ -2,14 +2,6 @@ const coruseUrl = "http://localhost:8080/course/saveCourseRegistration";
 // 각 페이지별 #header와 #footer에 html파일 넣기
 function loadHtml() {
   axios
-    .get("header.html")
-    .then((response) => {
-      document.getElementById("header").innerHTML = response.data;
-    })
-    .catch((error) => {
-      console.error("Header loading error:", error);
-    });
-  axios
     .get("footer.html")
     .then((response) => {
       document.getElementById("footer").innerHTML = response.data;
@@ -101,33 +93,6 @@ function cartView(dataList, userId) {
 
     cartBox.appendChild(tr);
 
-    document.querySelector(".searchBtn_1").addEventListener("click", () => {
-      window.location.href = "lecture.html?category=" + "00";
-    });
-    document.querySelector(".searchBtn_2").addEventListener("click", () => {
-      window.location.href = "lecture.html?category=01";
-    });
-
-    document.querySelector(".searchBtn_3").addEventListener("click", () => {
-      window.location.href = "lecture.html?category=02";
-    });
-
-    document.querySelector(".searchBtn_4").addEventListener("click", () => {
-      window.location.href = "lecture.html?category=" + "03";
-    });
-
-    document.querySelector(".searchBtn_5").addEventListener("click", () => {
-      window.location.href = "lecture.html?category=" + "04";
-    });
-
-    document.querySelector(".searchBtn_6").addEventListener("click", () => {
-      window.location.href = "lecture.html?category=" + "05";
-    });
-
-    document.querySelector(".searchBtn_7").addEventListener("click", () => {
-      window.location.href = "lecture.html?category=" + "99";
-    });
-
     chk.addEventListener("change", () => {
       if (chk.checked) {
         const classBtn = document.querySelector(".classBtn");
@@ -192,6 +157,32 @@ function handleDeleteButtonClick(dataList, userId) {
 }
 sessionCurrent();
 
+document.querySelector(".searchBtn_1").addEventListener("click", () => {
+  window.location.href = "lecture.html?category=" + "00";
+});
+document.querySelector(".searchBtn_2").addEventListener("click", () => {
+  window.location.href = "lecture.html?category=01";
+});
+
+document.querySelector(".searchBtn_3").addEventListener("click", () => {
+  window.location.href = "lecture.html?category=02";
+});
+
+document.querySelector(".searchBtn_4").addEventListener("click", () => {
+  window.location.href = "lecture.html?category=" + "03";
+});
+
+document.querySelector(".searchBtn_5").addEventListener("click", () => {
+  window.location.href = "lecture.html?category=" + "04";
+});
+
+document.querySelector(".searchBtn_6").addEventListener("click", () => {
+  window.location.href = "lecture.html?category=" + "05";
+});
+
+document.querySelector(".searchBtn_7").addEventListener("click", () => {
+  window.location.href = "lecture.html?category=" + "99";
+});
 // chkAll 클릭시 chk 전체 chekcked 처리
 // document.addEventListener("DOMContentLoaded", function () {
 //   const chkAll = document.getElementById("chkAll");

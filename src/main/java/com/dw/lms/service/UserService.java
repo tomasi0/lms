@@ -103,6 +103,11 @@ public class UserService {
         return userOptional.get();
     }
 
+    public List<User> findUsersByUserNameLike(String userName) {
+        return userRepository.findByUserNameLike("%" + userName + "%");
+    }
+
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

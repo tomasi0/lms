@@ -59,7 +59,8 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/lecture/**"),  // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
                                 new AntPathRequestMatcher("/pdf/**"),  // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
                                 new AntPathRequestMatcher("/css/**"),      // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
-                                new AntPathRequestMatcher("/js/**")        // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
+                                new AntPathRequestMatcher("/js/**"),        // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
+                                new AntPathRequestMatcher("/category/**")
                         ).permitAll() // 모두 허용
                         .anyRequest().authenticated()) // 어떠한 요청이든 인증받겠다.
                 .formLogin(form->form.loginPage("/login").defaultSuccessUrl("/articles")) // (formLogin => 로그인 화면 창) 정적 로그인 화면이 존재하는 경우, 로그인 성공시 다음화면 => defaultSuccessUrl

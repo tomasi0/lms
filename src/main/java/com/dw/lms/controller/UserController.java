@@ -119,6 +119,11 @@ public class UserController {
 //        return userService.getUserSQLByUserId(userId);
 //    }
 
+    @GetMapping("/id/nameLike/{userName}")
+    public List<User> findUsersByUserNameLike(@PathVariable String userName) {
+        return userService.findUsersByUserNameLike(userName);
+    }
+
     @GetMapping("/id/name/{userName}")
     public User getUserByUserName(@PathVariable String userName) {
         return userService.getUserByUserNameKor(userName);

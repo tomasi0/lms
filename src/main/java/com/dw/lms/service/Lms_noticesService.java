@@ -5,6 +5,7 @@ import com.dw.lms.repository.Lms_noticesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class Lms_noticesService {
     private Lms_noticesRepository repository;
 
     public Page<Lms_notices> getAllNotices(int page, int size) {
-        return repository.findAll(PageRequest.of(page, size));
+        return repository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "lmsNoticesWritingDate")));
     }
 
     public Lms_notices getNoticeById(Long id) {

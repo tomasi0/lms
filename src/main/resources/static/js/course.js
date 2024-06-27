@@ -268,8 +268,8 @@ function contentSearch(dataList) {
     moreTr.appendChild(count);
 
     const time = document.createElement("td");
-    const totalPlayTime = data.learning_time;
-    const playTime = data.learning_playtime;
+    const totalPlayTime = data.last_learning_datetime;
+    const playTime = data.complete_learning_datetime;
     time.innerHTML = totalPlayTime + "<br>" + playTime;
     moreTr.appendChild(time);
 

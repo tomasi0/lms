@@ -44,11 +44,10 @@ img {
   border: 1px solid black;
   margin: 5px;
   cursor: pointer;
-}
-.sidebar p {
   text-align: center;
   padding: 5px;
 }
+
 table {
   width: 100%;
 }
@@ -197,6 +196,11 @@ td {
 }
 
 .sideOption {
+  background-color: #317abe;
+  color: #fff;
+}
+
+.sidebar:hover {
   background-color: #317abe;
   color: #fff;
 }

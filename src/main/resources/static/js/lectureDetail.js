@@ -87,6 +87,8 @@ axios
   })
   .catch((error) => {
     console.log("에러 발생 : ", error);
+    alert("로그인해주세요.");
+    window.location.href = "http://localhost:8080/lms/main.html";
   });
 
 function lectureSearch(data) {

@@ -319,7 +319,7 @@ searchButton.addEventListener('click', () => {
   console.log("userName: " + userName);
 
     if (userName.length > 0) {
-      url = "http://localhost:8080/user/id/name/" + userName;
+      url = "http://localhost:8080/user/id/nameLike/" + userName;
     } else {
       url = "http://localhost:8080/user/admin/getAllUsers";
     }
