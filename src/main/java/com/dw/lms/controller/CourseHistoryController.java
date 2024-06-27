@@ -1,8 +1,6 @@
 package com.dw.lms.controller;
 
-import com.dw.lms.model.Category;
 import com.dw.lms.model.Course_history;
-import com.dw.lms.repository.CourseHistoryRepository;
 import com.dw.lms.service.CourseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

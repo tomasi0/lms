@@ -21,14 +21,42 @@
   </head>
   <body>
     <div class="container">
-      <div id="header"></div>
+    <div class="header">
+      <div class="wrap">
+        <h1>
+          <a href="main.html">
+            <img src="/image/logo.png" alt="로고위치" />
+          </a>
+        </h1>
+        <div class="gnb">
+          <ul>
+            <li>
+              <a href="lecture.html" class="mainnav">상세조회</a>
+            </li>
+            <li>
+              <a href="cart.html" class="mainnav">장바구니</a>
+            </li>
+            <li>
+              <a href="mypage.html" class="mainnav">마이페이지</a>
+            </li>
+            <li>
+              <a href="lms_notices.html" class="mainnav">커뮤니티</a>
+            </li>
+            <li>
+              <a href="login.html" id="login" class="mainnav">로그인</a>
+              <a href="login.html" id="logout" class="mainnav hidden">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
       <div class="root">
         <div class="content_category">
-          <div class="category choise">전체</div>
-          <div class="category">추천</div>
-          <div class="category">무료</div>
-          <div class="category">유료</div>
-          <div class="category">신규</div>
+          <div class="category choise" id="all">전체</div>
+          <div class="category" id="best">추천</div>
+          <div class="category" id="free">무료</div>
+          <div class="category" id="charged">유료</div>
+          <div class="category" id="new">신규</div>
         </div>
         <div class="content"></div>
         <div class="moreBtn">더 보기</div>
@@ -36,5 +64,6 @@
       <div id="footer"></div>
     </div>
     <script src="/js/main.js"></script>
+    <script defer src="/js/common.js"></script>
   </body>
 </html>

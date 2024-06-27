@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,7 +38,12 @@ public class Course_registration {
     @Column(name = "progress_lecture_contents_seq")
     private Long progressLectureContentsSeq;
 
+    @Column(name = "lecture_status", length = 1, nullable = false)
+    @ColumnDefault("'I'")
+    private String lectureStatus;
+
     @Column(name = "lecture_completed_check", length = 1)
+    @ColumnDefault("'N'")
     private String lectureCompletedCheck;
 
     @Column(name = "sys_date", updatable = false)

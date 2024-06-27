@@ -33,7 +33,7 @@ document.querySelector(".loginBtn").addEventListener("click", () => {
     .post(urlLogin, data, { withCredentials: true })
     .then((response) => {
       console.log("로그인 데이터: ", response.data);
-      sessionCurrent();
+      //sessionCurrent();
       window.location.href = "main.html";
     })
     .catch((error) => {
@@ -137,6 +137,7 @@ document.querySelector(".logoutBtn").addEventListener("click", () => {
         if (response.status == 200) {
           document.querySelector(".login-box").classList.remove("hidden");
           document.querySelector(".user-box").classList.add("hidden");
+          window.location.href = "main.html";
         }
       })
       .catch((error) => {

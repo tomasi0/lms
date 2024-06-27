@@ -14,7 +14,35 @@
 </head>
 <body>
     <div class="container">
-        <div id="header"></div>
+            <div class="header">
+      <div class="wrap">
+        <h1>
+          <a href="main.html">
+            <img src="/image/logo.png" alt="로고위치" />
+          </a>
+        </h1>
+        <div class="gnb">
+          <ul>
+            <li>
+              <a href="lecture.html" class="mainnav">상세조회</a>
+            </li>
+            <li>
+              <a href="cart.html" class="mainnav">장바구니</a>
+            </li>
+            <li>
+              <a href="mypage.html" class="mainnav">마이페이지</a>
+            </li>
+            <li>
+              <a href="lms_notices.html" class="mainnav">커뮤니티</a>
+            </li>
+            <li>
+              <a href="login.html" id="login" class="mainnav">로그인</a>
+              <a href="login.html" id="logout" class="mainnav hidden">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
             <div class="root">
                 <div class="content">
                     <aside>
@@ -25,43 +53,62 @@
                         </ul>
                     </aside>
                     <main>
-                        <h1>공지사항</h1>
-                        <table id="notice-table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>카테고리</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>등록일</th>
-                                    <th>조회</th>
-                                </tr>
-                            </thead>
-                            <tbody id="notice-list">
-                                <!-- 동적으로 내용이 삽입될 부분 -->
-                            </tbody>
-                        </table>
-                        <div class="pagination">
-                            <button id="prev-page"><</button>
-                            <span id="page-numbers"></span>
-                            <button id="next-page">></button>
-                        </div>
-                
-                        <!-- 상세 내용 표시 -->
-                        <div id="notice-detail" class="notice-detail" style="display: none;">
-                            <h2 id="detail-title"></h2>
-                            <p><strong>작성자:</strong> <span id="detail-writer"></span></p>
-                            <p><strong>작성일:</strong> <span id="detail-date"></span></p>
-                            <p><strong>조회수:</strong> <span id="detail-views"></span></p>
-                            <p id="detail-content"></p>
-                            <button id="back-to-list">목록</button>
-                        </div>
-                    </main>
+                      <h1>공지사항</h1>
+                      <table id="notice-table">
+                          <thead>
+                              <tr>
+                                  <th>No</th>
+                                  <th>카테고리</th>
+                                  <th>제목</th>
+                                  <th>작성자</th>
+                                  <th>등록일</th>
+                                  <th>조회</th>
+                              </tr>
+                          </thead>
+                          <tbody id="notice-list">
+                              <!-- 동적으로 내용이 삽입될 부분 -->
+                          </tbody>
+                      </table>
+                      <div class="pagination">
+                          <button id="prev-page"><</button>
+                          <span id="page-numbers"></span>
+                          <button id="next-page">></button>
+                      </div>
+                      <button id="create-notice-btn" style="display: none;">새 공지사항 작성</button>
+                      <!-- 상세 내용 표시 -->
+                      <div id="notice-detail" class="notice-detail" style="display: none;">
+                          <h2 id="detail-title"></h2>
+                          <p><strong>작성자:</strong> <span id="detail-writer"></span></p>
+                          <p><strong>작성일:</strong> <span id="detail-date"></span></p>
+                          <p><strong>조회수:</strong> <span id="detail-views"></span></p>
+                          <p id="detail-content"></p>
+                          <button id="back-to-list">목록</button>
+                          <button id="delete-notice-btn" style="display: none;">삭제</button>
+                      </div>
+                      <!-- 게시글 작성 폼 -->
+                      <div id="notice-form" class="notice-form" style="display: none;">
+                          <h2>새 공지사항 작성</h2>
+                          <label for="new-notice-category">카테고리:</label>
+                          <select id="new-notice-category">
+                              <option value="01">카테고리 01</option>
+                              <option value="02">카테고리 02</option>
+                              <option value="03">카테고리 03</option>
+                              <!-- 추가 카테고리를 여기에 추가 -->
+                          </select>
+                          <label for="new-notice-title">제목:</label>
+                          <input type="text" id="new-notice-title">
+                          <label for="new-notice-content">내용:</label>
+                          <textarea id="new-notice-content"></textarea>
+                          <button id="submit-notice">작성 완료</button>
+                          <button id="cancel-notice">취소</button>
+                      </div>
+                  </main>
                 </div>
             </div>
         <div id="footer"></div>
     </div>
     
     <script defer src="/js/lms_notices.js"></script>
+    <script defer src="/js/common.js"></script>
 </body>
 </html>

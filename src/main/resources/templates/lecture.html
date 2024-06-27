@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/lecture.css" />s
+    <link rel="stylesheet" href="/css/lecture.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
 
@@ -21,19 +21,47 @@
   </head>
   <body>
     <div class="container">
-      <div id="header"></div>
+          <div class="header">
+      <div class="wrap">
+        <h1>
+          <a href="main.html">
+            <img src="/image/logo.png" alt="로고위치" />
+          </a>
+        </h1>
+        <div class="gnb">
+          <ul>
+            <li>
+              <a href="lecture.html" class="mainnav">상세조회</a>
+            </li>
+            <li>
+              <a href="cart.html" class="mainnav">장바구니</a>
+            </li>
+            <li>
+              <a href="mypage.html" class="mainnav">마이페이지</a>
+            </li>
+            <li>
+              <a href="lms_notices.html" class="mainnav">커뮤니티</a>
+            </li>
+            <li>
+              <a href="login.html" id="login" class="mainnav">로그인</a>
+              <a href="login.html" id="logout" class="mainnav hidden">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
       <div class="root">
         <h3>상세조회</h3>
         <div class="search-box">
           <div class="search-engine">
             <p>검색어</p>
-            <input type="text" />
+            <input type="text" / class="serachText">
             <div class="searchBtn">검색</div>
           </div>
           <div class="search-engine">
             <p>카테고리</p>
-            <select name="category" id="category">
-              <option value="0">-전체-</option>
+            <select name="category" id="category" class="category">
+              <option value="00">-전체-</option>
             </select>
           </div>
         </div>
@@ -42,5 +70,6 @@
       <div id="footer"></div>
     </div>
     <script src="/js/lecture.js"></script>
+    <script defer src="/js/common.js"></script>
   </body>
 </html>

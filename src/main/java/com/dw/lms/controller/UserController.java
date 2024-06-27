@@ -1,7 +1,9 @@
 package com.dw.lms.controller;
 
+import com.dw.lms.dto.AuthorityUpdateDto;
 import com.dw.lms.dto.SessionDto;
 import com.dw.lms.dto.UserDto;
+import com.dw.lms.model.Category;
 import com.dw.lms.model.User;
 import com.dw.lms.repository.UserRepository;
 import com.dw.lms.service.UserDetailService;
@@ -12,14 +14,15 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController // Rest API 사용
@@ -94,6 +97,12 @@ public class UserController {
         // 유저네임과 권한 Dto 에 적용
         SessionDto sessionDto = new SessionDto();
         sessionDto.setUserId(authentication.getName());
+
+        Optional<User> userOptional = userRepository.findByUserId(authentication.getName());
+        if (userOptional.isPresent()){
+            sessionDto.setUserName(userOptional.get().getUserNameKor());
+        }
+
         sessionDto.setAuthority(authentication.getAuthorities());
 
         //return authentication.getName(); // 없는 경우 무명(anonymous), 있는 경우 유저네임
@@ -109,6 +118,47 @@ public class UserController {
 //    public UserDto getUserSQLByUserId(@PathVariable String userId) {
 //        return userService.getUserSQLByUserId(userId);
 //    }
+
+    @GetMapping("/id/name/{userName}")
+    public User getUserByUserName(@PathVariable String userName) {
+        return userService.getUserByUserNameKor(userName);
+    }
+
+//    @GetMapping("/id/{userId}")
+//    public UserDto getUserSQLByUserId(@PathVariable String userId) {
+//        return userService.getUserSQLByUserId(userId);
+//    }
+
+    @GetMapping("admin/getAllUsers")
+    @PreAuthorize("hasAnyRole('ADMIN')") // ADMIN 이외에는 사용 못하게
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(),
+                HttpStatus.OK);
+    }
+
+    @PutMapping("/userset")
+    public User SetUserData(@RequestBody User user) {
+        return userService.SetUserData(user);
+    }
+
+    @PutMapping("/updateAuthority")
+    @PreAuthorize("hasAnyRole('ADMIN')") // ADMIN 이외에는 사용 못하게
+    public ResponseEntity<?> updateAuthority(@RequestBody AuthorityUpdateDto request) {
+        try {
+            System.out.println("Controller getUserId: " + request.getUserId());
+            System.out.println("Controller getAuthorityName: " + request.getAuthorityName());
+
+            // 권한 업데이트 서비스 호출
+            userService.updateAuthority(request);
+
+            // 성공적으로 업데이트한 경우
+            return ResponseEntity.ok("success");
+        } catch (Exception e) {
+            // 실패한 경우
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update authority: " + e.getMessage());
+        }
+    }
+
 
 
 }

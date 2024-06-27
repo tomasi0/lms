@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/reviewDetail.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
 
@@ -21,17 +21,78 @@
   </head>
   <body>
     <div class="container">
-      <div id="header"></div>
+          <div class="header">
+      <div class="wrap">
+        <h1>
+          <a href="main.html">
+            <img src="/image/logo.png" alt="로고위치" />
+          </a>
+        </h1>
+        <div class="gnb">
+          <ul>
+            <li>
+              <a href="lecture.html" class="mainnav">상세조회</a>
+            </li>
+            <li>
+              <a href="cart.html" class="mainnav">장바구니</a>
+            </li>
+            <li>
+              <a href="mypage.html" class="mainnav">마이페이지</a>
+            </li>
+            <li>
+              <a href="lms_notices.html" class="mainnav">커뮤니티</a>
+            </li>
+            <li>
+              <a href="login.html" id="login" class="mainnav">로그인</a>
+              <a href="login.html" id="logout" class="mainnav hidden">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
       <div class="root">
         <div class="side-box">
-          <div class="sidebar"><p>전체과정</p></div>
-          <div class="sidebar"><p>전체과정</p></div>
-          <div class="sidebar"><p>전체과정</p></div>
+          <div class="sidebar searchBtn_1"><p>전체강의</p></div>
+          <div class="sidebar searchBtn_2"><p>응용SW엔지니어링</p></div>
+          <div class="sidebar searchBtn_3"><p>DB엔지니어링</p></div>
+          <div class="sidebar searchBtn_4"><p>디자인</p></div>
+          <div class="sidebar searchBtn_5"><p>UI/UX엔지니어링</p></div>
+          <div class="sidebar searchBtn_6"><p>인공지능</p></div>
+          <div class="sidebar searchBtn_7"><p>기타</p></div>
         </div>
-        <div class="content"></div>
+        <div class="content">
+          <h3>장바구니</h3>
+          <div class="cart-box">
+            <table class="cartTable">
+              <colgroup>
+                <col width="3%" />
+                <col width="25%" />
+                <col width="30%" />
+                <col width="15%" />
+                <col width="15%" />
+                <col width="12%" />
+              </colgroup>
+              <tr>
+                <th>
+                  <!-- chkAll 일단 주석처리, 추후 개발 확인 후 개발 -->
+                  <!-- <input type="checkbox" name="chk" id="chkAll" /> -->
+                </th>
+                <th colspan="2">강의명</th>
+                <th>카테고리</th>
+                <th>등록일</th>
+                <th>가격</th>
+              </tr>
+            </table>
+            <div class="button-box">
+              <div class="deleteBtn">삭제하기</div>
+              <div class="classBtn">수강신청</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="footer"></div>
     </div>
-    <script src="/js/reviewDetail.js"></script>
+    <script src="/js/cart.js"></script>
+    <script defer src="/js/common.js"></script>
   </body>
 </html>

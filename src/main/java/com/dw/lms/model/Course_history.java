@@ -27,6 +27,7 @@ public class Course_history {
     private Course_registration course_registration;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_history_seq")
     private Long courseHistorySeq;
 
@@ -34,10 +35,10 @@ public class Course_history {
     private String connectionIp;
 
     @Column(name = "connection_start_date")
-    private LocalDate connectionStartDate;
+    private LocalDateTime connectionStartDate;
 
     @Column(name = "connection_end_date")
-    private LocalDate connectionEndDate;
+    private LocalDateTime connectionEndDate;
 
     @Column(name = "sys_date", updatable = false)
     private LocalDateTime sysDate;

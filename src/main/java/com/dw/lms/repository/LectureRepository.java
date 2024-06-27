@@ -10,5 +10,4 @@ public interface LectureRepository extends JpaRepository<Lecture, String> {
 
     @Query("select a from Lecture a order by a.lectureId desc")
     public List<Lecture> getAllLecture();
-
 }

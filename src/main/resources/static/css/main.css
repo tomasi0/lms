@@ -19,6 +19,7 @@
 .root {
   width: 80%;
   margin: 0 auto;
+  padding: 30px;
 }
 .content_category {
   display: flex;
@@ -60,10 +61,15 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.lectureTitle {
+  font-weight: 1000;
+  font-size: 15px;
+  margin: 0 0 5px 10px;
+}
 
 .content p {
   margin: 0 0 5px 10px;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .lecture > img {
