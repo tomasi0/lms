@@ -36,12 +36,16 @@
 } */
 
 .content {
+    position: relative;
+    width: 100%;
     display: flex;
     flex-grow: 1;
+    width: 100%;
 }
 
 aside {
-    width: 200px;
+    width: 10%;
+    float: left;
     background-color: #f4f4f4;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -67,6 +71,8 @@ aside ul li a.active {
 }
 
 main {
+    width: 90%;
+    float: right;
     flex-grow: 1;
     padding: 20px;
     background-color: #fafafa;
@@ -81,6 +87,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: auto;
 }
 
 th, td {
@@ -97,8 +104,32 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+th:nth-child(1) { width: 5%; }   /* No */
+th:nth-child(2) { width: 5%; }   /* 카테고리 */
+th:nth-child(3) { width: 45%; }  /* 제목 */
+th:nth-child(4) { width: 15%; }  /* 작성자 */
+th:nth-child(5) { width: 20%; }  /* 등록일 */
+th:nth-child(6) { width: 10%; }  /* 답변상태 */
+
+
+#new-question-btn {
+    position: absolute; /* 절대 위치 설정 */
+    right: 20px; /* 우측 여백 */
+    bottom: 20px; /* 하단 여백 */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-bottom: 20px;
+}
+
 /* 페이징 스타일 */
 .pagination {
+    clear: both;
     text-align: center;
     margin-top: 20px;
 }

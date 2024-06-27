@@ -20,9 +20,17 @@ public class Lms_qaController {
     @Autowired
     private Lms_qaService lms_qaService;
 
+//    @GetMapping("/getAllItems")
+//    public Page<Lms_qa> getAllQuestions(@RequestParam int page, @RequestParam int size) {
+//        return lms_qaService.getQuestions(page, size);
+//    }
     @GetMapping("/getAllItems")
-    public Page<Lms_qa> getAllQuestions(@RequestParam int page, @RequestParam int size) {
-        return lms_qaService.getQuestions(page, size);
+    public Page<Lms_qa> getAllQuestions(@RequestParam int page, @RequestParam int size, @RequestParam(required = false) String category) {
+        if (category != null && !category.equals("all")) {
+            return lms_qaService.getQuestionsByCategory(page, size, category);
+        } else {
+            return lms_qaService.getQuestions(page, size);
+        }
     }
 
     @GetMapping("/{id}")
@@ -61,6 +69,11 @@ public class Lms_qaController {
     @PutMapping("/{id}/updateStatus")
     public Lms_qa updateQuestionStatus(@PathVariable Long id, @RequestBody StatusUpdateDto statusUpdateDto) {
         return lms_qaService.updateQuestionStatus(id, statusUpdateDto);
+    }
+
+    @GetMapping("/search")
+    public Page<Lms_qa> searchQuestions(@RequestParam String keyword, @RequestParam int page, @RequestParam int size) {
+        return lms_qaService.searchQuestions(keyword, page, size);
     }
 
 

@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,27 @@ public Page<Lms_qa> getQuestions(int page, int size) {
     }
     return questionsPage;
 }
+
+    public Page<Lms_qa> getQuestionsByCategory(int page, int size, String category) {
+        Page<Lms_qa> questionsPage = lms_qaRepository.findByCategoryId(category, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "lmsQaSeq")));
+        for (Lms_qa question : questionsPage) {
+            if (question.getLmsQaAnswerContent() != null && !question.getLmsQaAnswerContent().isEmpty()) {
+                question.setLmsQaAnswerCheck("Y");
+            } else {
+                question.setLmsQaAnswerCheck("N");
+            }
+        }
+        return questionsPage;
+    }
+
+    public Page<Lms_qa> searchQuestions(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "lmsQaSeq"));
+        return lms_qaRepository.findByLmsQaTitleContainingOrLmsQaContentContaining(keyword, keyword, pageable);
+    }
+
+    public List<Lms_qa> getAllQuestions() {
+        return lms_qaRepository.findAll();
+    }
 
     public Optional<Lms_qa> getQuestionById(Long id) {
         return lms_qaRepository.findById(id);

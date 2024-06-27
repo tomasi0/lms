@@ -26,7 +26,20 @@
                 </aside>
                 <main>
                     <h1>질의응답</h1>
-                    <button id="new-question-btn">새 게시글 작성</button>
+
+                    <!-- 카테고리 선택 버튼 -->
+                    <div id="category-buttons">
+                        <button class="category-btn" data-category="all">전체</button>
+                        <button class="category-btn" data-category="1">카테고리 1</button>
+                        <button class="category-btn" data-category="2">카테고리 2</button>
+                        <button class="category-btn" data-category="3">카테고리 3</button>
+                    </div>
+
+                    <div>
+                        <input type="text" id="search-keyword" placeholder="검색어를 입력하세요">
+                        <button id="search-button">검색</button>
+                    </div>
+                    
                     <table id="notice-table">
                         <thead>
                             <tr>
@@ -42,6 +55,7 @@
                             <!-- 동적으로 내용이 삽입될 부분 -->
                         </tbody>
                     </table>
+                    <button id="new-question-btn">새 게시글 작성</button>
                     <div class="pagination">
                         <button id="prev-page"><</button>
                         <span id="page-numbers"></span>
@@ -53,8 +67,9 @@
                         <h2>새 게시글 작성</h2>
                         <label for="new-question-category">카테고리:</label>
                         <select id="new-question-category">
-                            <option value="01">카테고리 1</option>
-                            <option value="02">카테고리 2</option>
+                            <option value="1">카테고리 1</option>
+                            <option value="2">카테고리 2</option>
+                            <option value="3">카테고리 3</option>
                             <!-- 추가 카테고리를 여기에 추가 -->
                         </select>
                         <label for="new-question-title">제목:</label>
@@ -77,6 +92,7 @@
                             <button id="submit-response">답변 제출</button>
                         </div>
                         <button id="delete-question" style="display: none;">게시글 삭제</button>
+                        <button id="edit-question" style="display: none;">수정하기</button>
                         <button id="back-to-list">목록</button>
                     </div>
                 </main>
