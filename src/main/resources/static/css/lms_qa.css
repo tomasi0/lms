@@ -85,21 +85,23 @@ main h1 {
 /* 카테고리 버튼 섹션 */
 #category-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* 버튼들 사이의 간격을 균등하게 분배 */
     margin-bottom: 20px;
     border-bottom: 2px solid #e0e0e0;
     padding-bottom: 10px;
 }
 
 #category-buttons .category-btn {
-    padding: 10px 20px;
-    margin: 0 10px;
+    flex: 1; /* 모든 버튼이 동일한 너비를 가지도록 설정 */
+    padding: 10px 0; /* 패딩을 위아래로만 적용 */
+    margin: 0 5px; /* 버튼 사이의 간격 */
     background-color: #f8f8f8;
     color: #333;
     border: 1px solid #ccc;
     border-radius: 4px 4px 0 0;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    text-align: center; /* 텍스트를 중앙 정렬 */
 }
 
 #category-buttons .category-btn:hover {
@@ -153,7 +155,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    table-layout: auto;
+    table-layout: fixed;
 }
 
 th, td {
