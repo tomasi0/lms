@@ -25,6 +25,84 @@ axios
       textHeader.appendChild(textName);
 
       const option = document.createElement("video");
+
+      // 비디오 요소 선택
+      
+      const video = option;
+
+      let startTime = 0;
+      let totalTime = 0;
+
+      video.addEventListener('play', () => {
+          startTime = video.currentTime;
+          console.log('[Video Started] at: ' + startTime);
+          // alert('Video started at: ' + startTime);
+      });
+
+      video.addEventListener('pause', () => {
+          const elapsedTime = video.currentTime - startTime;
+          totalTime += elapsedTime;
+          console.log('[Video Paused] Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
+          // alert('Video paused. Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
+          sendTimeToServer(totalTime);
+      });
+
+      video.addEventListener('ended', () => {
+          const elapsedTime = video.currentTime - startTime;
+          totalTime += elapsedTime;
+          console.log('[Video Ended]. Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
+          // alert('Video ended. Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
+          sendTimeToServer(totalTime);
+      });
+
+      function sendTimeToServer(time) {
+
+          function formatTime(seconds) {
+              const hrs = Math.floor(seconds / 3600);
+              const mins = Math.floor((seconds % 3600) / 60);
+              const secs = Math.floor(seconds % 60);
+
+              const formattedHrs = hrs > 0 ? `0${hrs}:` : "00";
+              const formattedMins = mins < 10 ? `0${mins}` : mins;
+              const formattedSecs = secs < 10 ? `0${secs}` : secs;
+
+              const learningTime = `${formattedHrs}${formattedMins}${formattedSecs}`;
+              
+              console.log("learningTime: " + learningTime);
+
+              // const lpSeq = 0; // Long lecture_progress_seq 비디오 오픈전에 가져와야 Update 가능
+              // const learningTime = "001000"; // String
+
+              // const updateUrl = "http://localhost:8080/progress/updateLearningTime/" + lpSeq + "/" + learningTime;
+              // console.log("updateUrl: " + updateUrl);
+
+              // axios
+              // .put(updateUrl, data)
+              // .then((response) => {
+              //   console.log("권한 업데이트 응답 Response : ", response);
+              //   if (response.data == "success") {
+              //       console.log("서버에 정보가 업데이트 되었습니다.");
+              //   } else {
+              //     let result = confirm("업데이트가 실패하였습니다. 에러 내용을 확인하시겠습니까?");
+                    
+              //     // 사용자의 응답에 따라 동작 수행
+              //     if (result) {
+              //         alert("에러 내용은 [" + response.data + "] 입니다.");
+              //     }
+              //   }
+              // })
+              // .catch((error) => {
+              //   console.log("에러", error);
+              // });
+
+              return learningTime;
+          }
+
+          console.log("totalTime: " + formatTime(time));
+          // alert("totalTime: " + formatTime(time));
+
+      }
+
       option.setAttribute = ("width", "100%");
       option.setAttribute = ("height", "auto%");
       option.style.width = "100%";

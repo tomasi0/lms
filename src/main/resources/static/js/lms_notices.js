@@ -45,9 +45,19 @@ function loadHtml() {
                 noticeTableBody.innerHTML = '';
                 notices.forEach((notice, index) => {
                     const row = document.createElement('tr');
+
+                    let categoryName = "";
+                    if (notice.categoryId === '01') {
+                        categoryName = "일반공지";
+                    } else if (notice.categoryId === '02') {
+                        categoryName = "수강정보";
+                    } else if (notice.categoryId === '99') {
+                        categoryName = "기타";
+                    }
+
                     row.innerHTML = `
                         <td>${index + 1 + (page - 1) * noticesPerPage}</td>
-                        <td>${notice.categoryId}</td>
+                        <td>${categoryName}</td>
                         <td class="notice-title" data-id="${notice.lmsNoticesSeq}">${notice.lmsNoticesTitle}</td>
                         <td>${notice.user ? notice.user.userNameKor : '관리자'}</td>
                         <td>${notice.lmsNoticesWritingDate}</td>

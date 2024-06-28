@@ -57,10 +57,11 @@
 
                     <!-- 카테고리 선택 버튼 -->
                     <div id="category-buttons">
-                        <button class="category-btn" data-category="all">전체</button>
-                        <button class="category-btn" data-category="1">카테고리 1</button>
-                        <button class="category-btn" data-category="2">카테고리 2</button>
-                        <button class="category-btn" data-category="3">카테고리 3</button>
+                        <button class="category-btn" id ="categoryBtn" data-category="all">전체</button>
+                        <button class="category-btn" id ="categoryBtn" data-category="01">수강문의</button>
+                        <button class="category-btn" id ="categoryBtn" data-category="02">회원정보</button>
+                        <button class="category-btn" id ="categoryBtn" data-category="03">시스템</button>
+                        <button class="category-btn" id ="categoryBtn" data-category="99">기타</button>
                     </div>
 
                     <div>
@@ -95,9 +96,10 @@
                         <h2>새 게시글 작성</h2>
                         <label for="new-question-category">카테고리:</label>
                         <select id="new-question-category">
-                            <option value="1">카테고리 1</option>
-                            <option value="2">카테고리 2</option>
-                            <option value="3">카테고리 3</option>
+                            <option value="01">수강문의</option>
+                            <option value="02">회원정보</option>
+                            <option value="03">시스템</option>
+                            <option value="99">기타</option>
                             <!-- 추가 카테고리를 여기에 추가 -->
                         </select>
                         <label for="new-question-title">제목:</label>

@@ -42,6 +42,10 @@ document.querySelector(".watchBtn").addEventListener("click", () => {
 
   document.querySelector(".syllabus").classList.add("hidden");
   document.querySelector(".progress").classList.remove("hidden");
+
+  const firstTr = document.querySelector(".detailTable .tr");
+  const dropBtn_func = firstTr.querySelector(".dropBtn");
+  dropBtn_func.click(); // dropBtn_func 이벤트 강제 발생
 });
 
 document.querySelector(".sideBtn1").addEventListener("click", () => {
@@ -238,6 +242,7 @@ function contentSearch(dataList) {
     const note = document.createElement("td");
     const noteA = document.createElement("a");
     noteA.href = data.learning_pdf_path;
+    noteA.target="_blank" // 새창으로 열리도록
     noteA.textContent = "PDF 보기";
     note.appendChild(noteA);
     tr.appendChild(note);

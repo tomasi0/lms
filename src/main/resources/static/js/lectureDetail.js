@@ -47,6 +47,19 @@ axios
     const reviewResponse = response[3];
     const studyResponse = response[4];
     const sessionResponse = response[5];
+    // header부분 로그인, 로그아웃 상태에 따른 hidden 효과
+    const login = document.getElementById("login");
+    const logout = document.getElementById("logout");
+
+    if (sessionResponse.status == 200) {
+      // 로그인 상태이면
+      login.classList.add("hidden");
+      logout.classList.remove("hidden"); // 로그아웃 표시
+    } else {
+      // 세션이 없거나 로그아웃 상태인 경우
+      logout.classList.add("hidden");
+      login.classList.remove("hidden"); // 로그인 표시
+    }
     console.log("Lecture 데이터: ", lectureResponse.data);
     console.log("Content 데이터: ", contentsResponse.data);
     console.log("Teacher 데이터: ", teacherResponse.data);
@@ -299,7 +312,7 @@ function ReviewSearch(dataList) {
     document.querySelector(".reviewUl").classList.add("hidden");
     const none = document.querySelector(".review-box");
     const p = document.createElement("p");
-    p.textContent = "후기가 없습니다.";
+    p.textContent = "강의 후기가 없습니다.";
     none.appendChild(p);
   } else {
     dataList.forEach((data, index) => {
@@ -328,14 +341,58 @@ function ReviewSearch(dataList) {
       tr.appendChild(date);
       tr.appendChild(score);
 
-      tr.addEventListener("click", () => {
-        const lectureId = data.course_registration.lecture.lectureId;
-        const userId = data.course_registration.user.userId;
-        window.location.href =
-          "reviewDetail.html?lectureId=" + lectureId + "&userId=" + userId;
-      });
+      // revireDetail로 넘어감
+      // tr.addEventListener("click", () => {
+      //   const lectureId = data.course_registration.lecture.lectureId;
+      //   const userId = data.course_registration.user.userId;
+      //   window.location.href =
+      //     "reviewDetail.html?lectureId=" + lectureId + "&userId=" + userId;
+      // });
+
+      // 리뷰 보기
+      const moreTr = document.createElement("tr");
+      const moreText = document.createElement("td");
+      moreText.setAttribute("colspan", "3");
+      moreText.textContent = data.learningReviewContent;
+      moreTr.appendChild(moreText);
+
+      // const moreDate = document.createElement("td");
+      // moreDate.classList.add("seq");
+      // moreDate.textContent = data.learningReviewDate;
+      // moreTr.appendChild(moreDate);
+
+      // review 작성자 익명처리
+      let userNameKor = data.course_registration.user.userNameKor;
+      if (userNameKor.length >= 2) {
+        userNameKor =
+          userNameKor.substring(0, 1) + "●" + userNameKor.substring(2); // 2번째 자리를 '●'로 대체
+      }
+
+      const moreId = document.createElement("td");
+      moreId.classList.add("seq");
+      moreId.textContent = "작성자 : " + userNameKor;
+      moreTr.appendChild(moreId);
+
+      moreTr.classList.add("hidden");
+      moreTr.classList.add("upBtn");
+      tr.classList.add("downBtn");
 
       reviewTable.appendChild(tr);
+      reviewTable.appendChild(moreTr);
+
+      // 리뷰 내용 보기
+      let toggleState = false;
+      tr.addEventListener("click", () => {
+        if (toggleState === false) {
+          moreTr.classList.remove("hidden");
+          tr.classList.add("tableOption");
+          toggleState = true;
+        } else {
+          moreTr.classList.add("hidden");
+          tr.classList.remove("tableOption");
+          toggleState = false;
+        }
+      });
     });
   }
 }
@@ -347,6 +404,7 @@ function sessionCurrent(data) {
     .get("http://localhost:8080/user/current", { withCredentials: true })
     .then((response) => {
       console.log("데이터:", response.data);
+      // header에 있는 login, logout
       if (response.status == 200) {
         const userId = response.data.userId;
         let cartItems = JSON.parse(localStorage.getItem(userId));
@@ -355,6 +413,7 @@ function sessionCurrent(data) {
         }
         cartItems.push(data);
         localStorage.setItem(userId, JSON.stringify(cartItems));
+      } else {
       }
     })
     .catch((error) => {

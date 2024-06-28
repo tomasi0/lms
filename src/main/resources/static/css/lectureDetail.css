@@ -239,6 +239,10 @@ td {
   color: black;
 }
 
+.tableOption {
+  background-color: deepskyblue;
+}
+
 .hidden {
   display: none;
 }

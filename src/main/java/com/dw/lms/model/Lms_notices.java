@@ -45,17 +45,4 @@ public class Lms_notices {
 
     @Column(name = "upd_date")
     private LocalDateTime updDate;
-
-    @PrePersist
-    protected void onCreate() {
-        sysDate = LocalDateTime.now();
-        updDate = LocalDateTime.now();
-        lmsNoticesWritingDate = LocalDate.now();
-        lmsNoticesViewCount = 0L;
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updDate = LocalDateTime.now();
-    }
 }

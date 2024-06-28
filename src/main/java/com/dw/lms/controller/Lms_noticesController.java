@@ -31,6 +31,7 @@ public class Lms_noticesController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Lms_notices> getNoticeById(@PathVariable Long id) {
+        service.incrementViewCount(id); // 조회수 증가
         Lms_notices notice = service.getNoticeById(id);
         return notice != null ? new ResponseEntity<>(notice, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

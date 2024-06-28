@@ -21,6 +21,12 @@ public class LectureProgressController {
     @Autowired
     LectureProgressService lectureProgressService;
 
+    @PutMapping("/progress/updateLearningTime/{lpSeq}/{learningTime}")
+    public ResponseEntity<Lecture_progress> updateLearningTime(@PathVariable Long lpSeq, @PathVariable String learningTime) {
+        return new ResponseEntity<>(lectureProgressService.updateLearningTime(lpSeq, learningTime),
+                HttpStatus.OK);
+    }
+
     @GetMapping("/progress/getAllLectureProgress")
     public ResponseEntity<List<Lecture_progress>> getAllLectureProgress() {
         return new ResponseEntity<>(lectureProgressService.getAllLectureProgress(),

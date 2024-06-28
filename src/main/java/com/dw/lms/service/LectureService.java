@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 
 @Service
 @Transactional
@@ -38,12 +39,20 @@ public class LectureService {
                 filteredLectures.add(lecture);
             }
         }
+
+        // 강의 목록을 lecture_id 내림차순으로 정렬
+        filteredLectures.sort(Comparator.comparing(Lecture::getLectureId).reversed());
+
         return filteredLectures;
     }
 
     // select 박스만 검색
     public List<Lecture> getLectureByCategory(String category) {
         List<Lecture> allLectures = lectureRepository.findAll();
+
+        // 강의 목록을 lecture_id 내림차순으로 정렬
+        allLectures.sort(Comparator.comparing(Lecture::getLectureId).reversed());
+
         List<Lecture> lecturesInCategory = new ArrayList<>();
 
         if ("00".equals(category)) {
@@ -56,12 +65,19 @@ public class LectureService {
             }
         }
 
+        // 작업된 강의 목록을 lecture_id 내림차순으로 정렬
+        lecturesInCategory.sort(Comparator.comparing(Lecture::getLectureId).reversed());
+
         return lecturesInCategory;
     }
 
     // select박스 search 둘 다 조회
     public List<Lecture> searchLectureByKeywordAndCategory(String search, String category) {
         List<Lecture> allLectures = lectureRepository.findAll();
+
+        // 강의 목록을 lecture_id 내림차순으로 정렬
+        allLectures.sort(Comparator.comparing(Lecture::getLectureId).reversed());
+
         List<Lecture> foundLectures = new ArrayList<>();
         // 만약 search가 없으면 getLectureByCategory 실행(category만 검색)
         if (search.isEmpty()){
@@ -87,12 +103,19 @@ public class LectureService {
             }
         }
 
+        // 강의 목록을 lecture_id 내림차순으로 정렬
+        foundLectures.sort(Comparator.comparing(Lecture::getLectureId).reversed());
+
         return foundLectures;
     }
 
     // main.html에서 상단 무료, 유료, 추천, 신규, 전체 누를때마다 조건에 맞는 data 조회됨
     public List<Lecture> getCategoryLecture(String keyword) {
         List<Lecture> allLecture = lectureRepository.findAll();
+
+        // 강의 목록을 lecture_id 내림차순으로 정렬
+        allLecture.sort(Comparator.comparing(Lecture::getLectureId).reversed());
+
         List<Lecture> lectureList = new ArrayList<>();
 
         LocalDateTime now = LocalDateTime.now();
@@ -125,6 +148,9 @@ public class LectureService {
         } else {
             return getAllLecture();
         }
+
+        // 작업된 강의 목록을 lecture_id 내림차순으로 정렬
+        lectureList.sort(Comparator.comparing(Lecture::getLectureId).reversed());
 
         return lectureList;
     }

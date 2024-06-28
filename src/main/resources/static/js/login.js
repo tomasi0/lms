@@ -104,6 +104,7 @@ document.querySelector(".registrationBtn").addEventListener("click", () => {
 
           document.querySelector(".login-box").classList.remove("hidden"); // 로그인 box 보이도록
           document.querySelector(".signup-box").classList.add("hidden"); // 회원가입 box 안보이도록
+          alert("회원가입이 완료되었습니다.")
         }
       })
       .catch((error) => {

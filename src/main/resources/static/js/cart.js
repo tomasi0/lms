@@ -18,13 +18,23 @@ function sessionCurrent() {
     .get("http://localhost:8080/user/current", { withCredentials: true })
     .then((response) => {
       console.log("데이터:", response.data);
+      const login = document.getElementById("login");
+      const logout = document.getElementById("logout");
+
       if (response.status == 200) {
+        // 로그인 상태이면
+        login.classList.add("hidden");
+        logout.classList.remove("hidden"); // 로그아웃 표시
         const userId = response.data.userId;
         let items = JSON.parse(localStorage.getItem(userId));
         console.log(items);
         if (items) {
           cartView(items, userId); // cartView 함수를 호출하여 데이터를 전달
         }
+      } else {
+        // 세션이 없거나 로그아웃 상태인 경우
+        logout.classList.add("hidden");
+        login.classList.remove("hidden"); // 로그인 표시
       }
     })
     .catch((error) => {

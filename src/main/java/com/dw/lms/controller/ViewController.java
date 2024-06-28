@@ -88,6 +88,9 @@ public class ViewController { // 디자인 패턴, MVC(Model[정보] View(=>Fron
     @GetMapping("/lms/course/video.html")
     public String video(){return "popupVideo";}
 
+    @GetMapping("/lms/index.html")
+    public String index(){return "main";}
+
 
 
 }
