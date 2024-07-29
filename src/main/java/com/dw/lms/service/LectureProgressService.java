@@ -1,6 +1,7 @@
 package com.dw.lms.service;
 
 import com.dw.lms.dto.LectureProgressDto;
+import com.dw.lms.exception.ResourceNotFoundException;
 import com.dw.lms.model.Lecture_progress;
 import com.dw.lms.model.User;
 import com.dw.lms.repository.LectureProgressRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LectureProgressService {
@@ -87,6 +89,10 @@ public class LectureProgressService {
         }
 
         String inputlearningTime = calculLearningTime(previousTime, learningTime);
+
+        System.out.println("previousTime: " + previousTime);
+        System.out.println("learningTime: " + learningTime);
+        System.out.println("inputlearningTime: " + inputlearningTime);
 
         inputLectureProgress.setLearningTime(inputlearningTime);
 
@@ -164,8 +170,9 @@ public class LectureProgressService {
                 "              mid(B.learning_playtime,1,2),'시', " +
                 "              mid(B.learning_playtime,3,2),'분', " +
                 "              mid(B.learning_playtime,5,2),'초', ')') as learning_playtime " +
-                "     , learning_pdf_path " +
-                "     , learning_video_path " +
+                "     , B.learning_pdf_path " +
+                "     , B.learning_video_path " +
+                "     , A.lecture_progress_seq " +
                 "  FROM lecture_progress  A " +
                 "  LEFT JOIN " +
                 "       learning_contents B " +
@@ -196,6 +203,7 @@ public class LectureProgressService {
             String column8Value = row[7].toString(); // learning_playtime
             String column9Value = row[8].toString(); // learning_pdf_path
             String column10Value = row[9].toString(); // learning_video_path
+            Long column11Value = Long.valueOf(row[10].toString()); // lecture_progress_seq
 
 //            private Long learning_contents_seq;
 //            private String learning_contents;
@@ -207,13 +215,23 @@ public class LectureProgressService {
 //            private String learning_playtime;
 //            private String learning_pdf_path;
 //            private String learning_video_path;
+//            private Long lecture_progress_seq; // 240701 추가
 
             LectureProgressDto lectureProgressDto = new LectureProgressDto(column1Value, column2Value, column3Value, column4Value, column5Value,
-                    column6Value, column7Value, column8Value, column9Value, column10Value);
+                    column6Value, column7Value, column8Value, column9Value, column10Value, column11Value);
             lectureProgress.add(lectureProgressDto);
 
         }
         return lectureProgress;
     }
+
+    public Lecture_progress getLectureProgressByProgressSeq(Long progressSeq) {
+        Lecture_progress lectureProgress = lectureProgressRepository.findById(progressSeq)
+                .orElseThrow(() -> new EntityNotFoundException("LectureProgressService Lecture_progress NotFound"));
+
+        return lectureProgress;
+    }
+
+
 
 }

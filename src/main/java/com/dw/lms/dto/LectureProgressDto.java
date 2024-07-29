@@ -21,4 +21,5 @@ public class LectureProgressDto {
     private String learning_playtime;
     private String learning_pdf_path;
     private String learning_video_path;
+    private Long lecture_progress_seq; // 240701 추가
 }

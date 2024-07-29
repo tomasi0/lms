@@ -69,7 +69,8 @@ function loadHtml() {
                 // 페이지 번호 업데이트
                 pageNumbersSpan.innerHTML = '';
                 for (let i = 1; i <= totalPages; i++) {
-                    const pageNumber = document.createElement('span');
+                	  const pageNumber = document.createElement('div');
+                    // const pageNumber = document.createElement('span'); // 240628 수정
                     pageNumber.textContent = i;
                     if (i === currentPage) {
                         pageNumber.style.fontWeight = 'bold';

@@ -47,19 +47,18 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers(
                                 /* CORS 체크 후에 진행 */
-                                new AntPathRequestMatcher("/products/**"), // REST API 용 주소(WAS 까지), 제품 관련 REST API 인증 추가 (24/05/27)
                                 new AntPathRequestMatcher("/user/login"),  // REST API 용 주소(WAS 까지), Rest API 로그인, /user/** 이하 모든것, /user/* 첫번째 레벨 자식들
                                 new AntPathRequestMatcher("/user/signup"), // REST API 용 주소(WAS 까지), 가입
                                 new AntPathRequestMatcher("/login"),       // 일반주소, Static Page login 등 허용 주소를 기재함
-                                new AntPathRequestMatcher("/lms/**"), // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
+                                new AntPathRequestMatcher("/lms/**"),      // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
                                 // new AntPathRequestMatcher("/user/current"),
                                 new AntPathRequestMatcher("/api/notices/**"),   // Guest 공지사항 확인 가능
                                 new AntPathRequestMatcher("/api/lmsevents/**"), // Guest 이벤트 확인 가능
                                 new AntPathRequestMatcher("/image/**"),    // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
                                 new AntPathRequestMatcher("/lecture/**"),  // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
-                                new AntPathRequestMatcher("/pdf/**"),  // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
+                                new AntPathRequestMatcher("/pdf/**"),      // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
                                 new AntPathRequestMatcher("/css/**"),      // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
-                                new AntPathRequestMatcher("/js/**"),        // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
+                                new AntPathRequestMatcher("/js/**"),       // 페이지 요청 (위의 3개와 다름) (톰켓 까지)
                                 new AntPathRequestMatcher("/category/**")
                         ).permitAll() // 모두 허용
                         .anyRequest().authenticated()) // 어떠한 요청이든 인증받겠다.

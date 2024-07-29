@@ -1,14 +1,41 @@
 const urlParams = new URLSearchParams(window.location.search);
-const lectureId = urlParams.get("lectureId");
-const lectureSeq = urlParams.get("lectureSeq");
-console.log("아이디", lectureId);
-console.log("순번", lectureSeq);
+// const lectureId = urlParams.get("lectureId");
+// const lectureSeq = urlParams.get("lectureSeq");
+// console.log("아이디", lectureId);
+// console.log("순번", lectureSeq);
 
-const contentUrl =
-  "http://localhost:8080/learning/contents/" + lectureId + "/" + lectureSeq;
-console.log(contentUrl);
+const lectureProgressSeq = urlParams.get("lectureProgressSeq");
+console.log("진도 Seq: ", lectureProgressSeq);
+
+// const contentUrl =
+//   "http://localhost:8080/learning/contents/" + lectureId + "/" + lectureSeq;
+
+//lms/progress/seq/{progressSeq}
+
+const progressUrl =
+  "http://localhost:8080/lms/progress/seq/" + lectureProgressSeq;
+
+console.log(progressUrl);
 
 axios
+.get(progressUrl)
+.then((response) => {
+  console.log("데이터 : ", response.data);
+
+  const lectureId   = response.data.course_registration.lecture.lectureId;
+  const lectureSeq  = response.data.learningContentsSeq;
+  const progressSeq = response.data.lectureProgressSeq;
+
+  console.log("LectureId: ", lectureId);
+  console.log("ContentSeq: ", lectureSeq);
+  console.log("ProgressSeq: ", progressSeq);
+
+  const contentUrl =
+  "http://localhost:8080/learning/contents/" + lectureId + "/" + lectureSeq;
+
+  console.log(contentUrl);
+
+  axios
   .get(contentUrl)
   .then((Response) => {
     console.log("데이터 : ", Response.data);
@@ -44,7 +71,10 @@ axios
           totalTime += elapsedTime;
           console.log('[Video Paused] Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
           // alert('Video paused. Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
-          sendTimeToServer(totalTime);
+          // 중간에 2번 pause 한 경우 처음에 10초, 2번째는 10초가 아니라 10+10 => 20초 => 중간 중간 적용시 totalTime 이 아니라 elapsedTime 으로 DB 적용
+
+          //sendTimeToServer(totalTime);
+          sendTimeToServer(elapsedTime);
       });
 
       video.addEventListener('ended', () => {
@@ -52,7 +82,9 @@ axios
           totalTime += elapsedTime;
           console.log('[Video Ended]. Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
           // alert('Video ended. Elapsed time: ' + elapsedTime + ', Total time: ' + totalTime);
-          sendTimeToServer(totalTime);
+
+          // sendTimeToServer(totalTime);
+          sendTimeToServer(elapsedTime);
       });
 
       function sendTimeToServer(time) {
@@ -70,30 +102,31 @@ axios
               
               console.log("learningTime: " + learningTime);
 
-              // const lpSeq = 0; // Long lecture_progress_seq 비디오 오픈전에 가져와야 Update 가능
-              // const learningTime = "001000"; // String
+              //const progressSeq = 0; // Long lecture_progress_seq 비디오 오픈전에 가져와야 Update 가능
 
-              // const updateUrl = "http://localhost:8080/progress/updateLearningTime/" + lpSeq + "/" + learningTime;
-              // console.log("updateUrl: " + updateUrl);
+              //const learningTime = "001000"; // String
 
-              // axios
-              // .put(updateUrl, data)
-              // .then((response) => {
-              //   console.log("권한 업데이트 응답 Response : ", response);
-              //   if (response.data == "success") {
-              //       console.log("서버에 정보가 업데이트 되었습니다.");
-              //   } else {
-              //     let result = confirm("업데이트가 실패하였습니다. 에러 내용을 확인하시겠습니까?");
+              const updateUrl = "http://localhost:8080/progress/updateLearningTime/" + progressSeq + "/" + learningTime;
+              console.log("updateUrl: " + updateUrl);
+
+              axios
+              .put(updateUrl, data)
+              .then((response) => {
+                console.log("권한 업데이트 응답 Response : ", response);
+                if (response.status == 200) {
+                    console.log("서버에 정보가 업데이트 되었습니다.");
+                } else {
+                  let result = confirm("업데이트가 실패하였습니다. 에러 내용을 확인하시겠습니까?");
                     
-              //     // 사용자의 응답에 따라 동작 수행
-              //     if (result) {
-              //         alert("에러 내용은 [" + response.data + "] 입니다.");
-              //     }
-              //   }
-              // })
-              // .catch((error) => {
-              //   console.log("에러", error);
-              // });
+                  // 사용자의 응답에 따라 동작 수행
+                  if (result) {
+                      alert("에러 내용은 [" + response.data + "] 입니다.");
+                  }
+                }
+              })
+              .catch((error) => {
+                console.log("progress Save error: ", error);
+              });
 
               return learningTime;
           }
@@ -116,5 +149,10 @@ axios
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.log("contentUrl loading error: ", error);
   });
+
+})
+.catch((error) => {
+  console.error("progressUrl loading error: ", error);
+});

@@ -67,3 +67,7 @@ img {
 .hidden {
   display: none;
 }
+
+.wrap h1 {
+  padding-top: 15px;
+}

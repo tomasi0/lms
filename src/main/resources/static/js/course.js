@@ -291,14 +291,26 @@ function contentSearch(dataList) {
     videoPalyBtn.classList.add("playBtn");
     videoPalyBtn.textContent = "학습하기";
 
-    const lectureSeq = data.learning_contents_seq;
+    // 240701 lecture_progress_seq 추가
+    const lectureProgressSeq = document.createElement("td");
+    lectureProgressSeq.classList.add("hidden");
+    lectureProgressSeq.textContent = data.lecture_progress_seq;
+    tr.appendChild(lectureProgressSeq);
+
+    //const lectureSeq = data.learning_contents_seq;
+    const lectureProgressSeqData = data.lecture_progress_seq;
 
     videoPalyBtn.addEventListener("click", () => {
+      // const popupURL =
+      //   "http://localhost:8080/lms/course/video.html?lectureId=" +
+      //   lectureId +
+      //   "&lectureSeq=" +
+      //   lectureSeq;
+
+      // 240701 추가
       const popupURL =
-        "http://localhost:8080/lms/course/video.html?lectureId=" +
-        lectureId +
-        "&lectureSeq=" +
-        lectureSeq;
+        "http://localhost:8080/lms/course/video.html?lectureProgressSeq=" +
+        lectureProgressSeqData;
 
       const popupName = "video";
       const popupStlye = "width=1200, height=750, resizable=yes";

@@ -20,7 +20,6 @@
 .root {
     width: 80%;
     margin: 0 auto;
-    height: 100vh;
     overflow: hidden;
 }
 
@@ -35,8 +34,8 @@ aside {
     background-color: #f4f4f4;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    border-radius: 8px;
     margin-right: 20px;
+    z-index:2;
 }
 
 aside ul {
@@ -76,16 +75,18 @@ main {
     padding: 20px;
     background-color: #fafafa;
     position: relative; /*게시글작성버튼 때문에 작성*/
+    min-height: 81vh;
 }
 
 main h1 {
-    text-align: center;
-    margin-top: 20px;
+    text-align: left;
+    margin: 20px;
+    /* margin-left: 10px !important; */
 }
 
 /* 카테고리 버튼 섹션 */
 #category-buttons {
-    display: flex;
+    display: flex !important;
     justify-content: space-between; /* 버튼들 사이의 간격을 균등하게 분배 */
     margin-bottom: 20px;
     border-bottom: 2px solid #e0e0e0;
@@ -103,6 +104,7 @@ main h1 {
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     text-align: center; /* 텍스트를 중앙 정렬 */
+    font-size: 16px;
 }
 
 #category-buttons .category-btn:hover {
@@ -178,10 +180,10 @@ tr:nth-child(even) {
 }
 
 th:nth-child(1) { width: 5%; }   /* No */
-th:nth-child(2) { width: 10%; }  /* 카테고리 */
+th:nth-child(2) { width: 5%; }   /* 카테고리 */
 th:nth-child(3) { width: 45%; }  /* 제목 */
 th:nth-child(4) { width: 15%; }  /* 작성자 */
-th:nth-child(5) { width: 15%; }  /* 등록일 */
+th:nth-child(5) { width: 20%; }  /* 등록일 */
 th:nth-child(6) { width: 10%; }  /* 답변상태 */
 
 #new-question-btn {
@@ -439,8 +441,11 @@ th:nth-child(6) { width: 10%; }  /* 답변상태 */
     background-color: #c82333;
 }
 
-/* CSS 에서 hidden 은 맨 아래에 위치해야 함, 반응형 media query 등 */
-.hidden {
-    display: none;
+#search-keyword, #search-button {
+    font-size: 16px;
+    padding: 0 5px;
 }
-  
+
+.question-title {
+    cursor: pointer;
+}

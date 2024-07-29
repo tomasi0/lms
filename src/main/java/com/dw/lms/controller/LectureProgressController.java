@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class LectureProgressController {
@@ -41,6 +42,11 @@ public class LectureProgressController {
     @GetMapping("/lms/lecture/progress/{userId}/{lectureId}")
     public ResponseEntity<List<LectureProgressDto>> getLectureProgressDetails(@PathVariable String userId, @PathVariable String lectureId) {
         return new ResponseEntity<>(lectureProgressService.getLectureProgressDetails(userId,lectureId),HttpStatus.OK);
+    }
+
+    @GetMapping("/lms/progress/seq/{progressSeq}")
+    public ResponseEntity<Lecture_progress> getLectureProgressByProgressSeq(@PathVariable Long progressSeq) {
+        return new ResponseEntity<>(lectureProgressService.getLectureProgressByProgressSeq(progressSeq),HttpStatus.OK);
     }
 
 
