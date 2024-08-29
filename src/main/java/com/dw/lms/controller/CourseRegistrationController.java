@@ -30,6 +30,12 @@ public class CourseRegistrationController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/course/registration/id/{userId}")
+    public ResponseEntity<List<Course_registration>> getRegistrationByUserId(@PathVariable String userId) {
+        return new ResponseEntity<>(courseRegistrationService.getAllRegistration(),
+                HttpStatus.OK);
+    }
+
     @GetMapping("/course/lectureStatusCount/id/{userId}")
     public ResponseEntity<List<LectureStatusCountDto>> getLectureStatusCountJPQL(@PathVariable String userId) {
         return new ResponseEntity<>(courseRegistrationService.getLectureStatusCountJPQL(userId),

@@ -46,6 +46,10 @@ public class CourseRegistrationService {
         return courseRegistrationRepository.findAll();
     }
 
+    public List<Course_registration> getRegistrationByUserId(String userId) {
+        return courseRegistrationRepository.findByUserId(userId);
+    }
+
     // Course_registration_CK 키 가져오는 부분
     public Course_registration findCourseRegistrationByCompositeKey(User user, Lecture lecture) {
         Course_registration_CK course_registration_CK = new Course_registration_CK(user, lecture);

@@ -121,6 +121,7 @@ public class UserController {
 
     @GetMapping("/id/nameLike/{userName}")
     public List<User> findUsersByUserNameLike(@PathVariable String userName) {
+        System.out.println("/id/nameLike/userName: " + userName);
         return userService.findUsersByUserNameLike(userName);
     }
 
@@ -137,12 +138,31 @@ public class UserController {
     @GetMapping("admin/getAllUsers")
     @PreAuthorize("hasAnyRole('ADMIN')") // ADMIN 이외에는 사용 못하게
     public ResponseEntity<List<User>> getAllUsers() {
+        System.out.println("admin/getAllUsers Start!!!");
         return new ResponseEntity<>(userService.getAllUsers(),
                 HttpStatus.OK);
     }
 
     @PutMapping("/userset")
     public User SetUserData(@RequestBody User user) {
+
+//        System.out.println("아이디: " + user.getUserId());
+//        System.out.println("성명(한글): " + user.getUserNameKor());
+//        System.out.println("성별: " + user.getGender());
+//        System.out.println("성명(영어): " + user.getUserNameEng());
+//        System.out.println("생년월일: " + user.getBirthDate());
+//        System.out.println("이메일: " + user.getEmail());
+//        System.out.println("휴대전화: " + user.getHpTel());
+//        System.out.println("학력: " + user.getEducation());
+//        System.out.println("최종학교: " + user.getFinalSchool());
+//        System.out.println("재직구분" + user.getCfOfEmp());
+//        System.out.println("자택주소(우편번호): " + user.getZip_code());
+//        System.out.println("자택주소(상세1): " + user.getAddress1Name());
+//        System.out.println("자택주소(상세2): " + user.getAddress2Name());
+//        System.out.println("정보수신 동의(이메일): " + user.getReceiveEmailYn());
+//        System.out.println("정보수신 동의(SMS): " + user.getReceiveSmsYn());
+//        System.out.println("정보수신 동의(광고,프로모션): " + user.getReceiveAdsPrPromoYn());
+
         return userService.SetUserData(user);
     }
 

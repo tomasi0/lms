@@ -116,20 +116,28 @@ public class UserService {
         Optional<User> userOptional = userRepository.findByUserId(user.getUserId());
         if(userOptional.isPresent()) {
             User temp = userOptional.get();
+
+//            System.out.println("아이디: " + user.getUserId());
+//            System.out.println("성명(한글): " + user.getUserNameKor());
+//            System.out.println("성별: " + user.getGender());
+
+            temp.setUserNameKor(user.getUserNameKor());
+            temp.setGender(user.getGender());
             temp.setUserNameEng(user.getUserNameEng());
-            temp.setEmail(user.getEmail());
             temp.setBirthDate(user.getBirthDate());
+            temp.setEmail(user.getEmail());
             temp.setHpTel(user.getHpTel());
             temp.setEducation(user.getEducation());
             temp.setFinalSchool(user.getFinalSchool());
+            temp.setCfOfEmp(user.getCfOfEmp());
             temp.setZip_code(user.getZip_code());
             temp.setAddress1Name(user.getAddress1Name());
             temp.setAddress2Name(user.getAddress2Name());
-            temp.setCfOfEmp(user.getCfOfEmp());
             temp.setReceiveEmailYn(user.getReceiveEmailYn());
             temp.setReceiveSmsYn(user.getReceiveSmsYn());
             temp.setReceiveAdsPrPromoYn(user.getReceiveAdsPrPromoYn());
             temp.setUpdatedAt(user.getUpdatedAt());
+
             userRepository.save(temp);
             return temp;
         }else {
