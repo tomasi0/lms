@@ -10,7 +10,10 @@ import com.dw.lms.model.User;
 import com.dw.lms.repository.CourseRegistrationRepository;
 import com.dw.lms.repository.LectureRepository;
 import com.dw.lms.repository.UserRepository;
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +43,30 @@ public class CourseRegistrationService {
 
         Course_registration_CK compositeKey = new Course_registration_CK(inputUser, inputLecture);
         courseRegistrationRepository.deleteById(compositeKey);
+    }
+
+    //    public List<CourseRegistrationRepository> getCourseRegistraionById(String userId, String lectureId) {
+    //        List<Course_registration> courseRegistrationList = courseRegistrationRepository.findAll();
+    //        List<Course_registration> courseRegistrationUserId = new ArrayList<>();
+    //        List<Course_registration> courseRegistrationLectureId = new ArrayList<>();
+    //
+    //        for (Course_registration courseRegistration : courseRegistrationList) {
+    //            if (courseRegistration.getUser().getUserId().equals(userId)){
+    //                courseRegistrationUserId.add(courseRegistration);
+    //                for (int i = 0; i < courseRegistrationUserId.size(); i++) {
+    //                    if(courseRegistrationUserId.get(i).getLecture().getLectureId().equals(lectureId)){
+    //                        courseRegistrationLectureId.add(courseRegistrationUserId.get(i));
+    //                    }
+    //
+    //                }
+    //
+    //            }
+    //        }
+    //        return courseRegistrationLectureId;
+    //    }
+    public List<Course_registration> getCourseRegistraionById(String userId, String lectureId) {
+
+        return courseRegistrationRepository.findByUser_UserIdAndLecture_LectureId(userId, lectureId);
     }
 
     public List<Course_registration> getAllRegistration() {
@@ -147,31 +174,31 @@ public class CourseRegistrationService {
 
     public List<Object[]> executeNativeQueryDto3(String userName) {
         String sqlQuery = "SELECT B.user_id " +
-                          "     , B.user_name " +
-                          "     , B.email " +
-                          "     , B.act_yn " +
-                          "     , count(*) as course_registration_cnt " +
-                          "  FROM user  B " +
-                          "     , course_registration A " +
-                          " WHERE A.user_id  = B.user_id " +
-                          "   AND B.user_name like :userName " +
-                          " GROUP BY " +
-                          "       B.user_id " +
-                          "     , B.user_name " +
-                          "     , B.email " +
-                          "     , B.act_yn " +
-                          " UNION ALL " +
-                          "SELECT B.user_id " +
-                          "     , B.user_name " +
-                          "     , B.email " +
-                          "     , B.act_yn " +
-                          "     , 0 as course_registration_cnt " +
-                          "  FROM user  B " +
-                          " WHERE B.user_name like :userName " +
-                          "   AND NOT EXISTS ( SELECT * " +
-                          "                      FROM course_registration A " +
-                          "                     WHERE A.user_id = B.user_id ) " +
-                          " ORDER BY 5 desc, 1 ";
+                "     , B.user_name " +
+                "     , B.email " +
+                "     , B.act_yn " +
+                "     , count(*) as course_registration_cnt " +
+                "  FROM user  B " +
+                "     , course_registration A " +
+                " WHERE A.user_id  = B.user_id " +
+                "   AND B.user_name like :userName " +
+                " GROUP BY " +
+                "       B.user_id " +
+                "     , B.user_name " +
+                "     , B.email " +
+                "     , B.act_yn " +
+                " UNION ALL " +
+                "SELECT B.user_id " +
+                "     , B.user_name " +
+                "     , B.email " +
+                "     , B.act_yn " +
+                "     , 0 as course_registration_cnt " +
+                "  FROM user  B " +
+                " WHERE B.user_name like :userName " +
+                "   AND NOT EXISTS ( SELECT * " +
+                "                      FROM course_registration A " +
+                "                     WHERE A.user_id = B.user_id ) " +
+                " ORDER BY 5 desc, 1 ";
         Query query = entityManager.createNativeQuery(sqlQuery);
         query.setParameter("userName", userName); // 전체는 %, 조건이 있으면 %조건%
 
@@ -222,38 +249,38 @@ public class CourseRegistrationService {
 
     public List<Object[]> executeNativeQueryDto2(String lectureName) {
         String sqlQuery = "SELECT B.lecture_id " +
-                          "     , B.lecture_name " +
-                          "     , B.education_period_start_date " +
-                          "     , B.education_period_end_date " +
-                          "     , C.category_name " +
-                          "     , count(*) as course_registration_cnt " +
-                          "  FROM category C " +
-                          "     , lecture  B " +
-                          "     , course_registration A " +
-                          " WHERE A.lecture_id  = B.lecture_id " +
-                          "   AND B.category_id = C.category_id " +
-                          "   AND B.lecture_name like :lectureName " +
-                          " GROUP BY " +
-                          "       B.lecture_id " +
-                          "     , B.lecture_name " +
-                          "     , B.education_period_start_date " +
-                          "     , B.education_period_end_date " +
-                          "     , C.category_name " +
-                          " UNION ALL " +
-                          "SELECT B.lecture_id " +
-                          "     , B.lecture_name " +
-                          "     , B.education_period_start_date " +
-                          "     , B.education_period_end_date " +
-                          "     , C.category_name " +
-                          "     , 0 as course_registration_cnt " +
-                          "  FROM category C " +
-                          "     , lecture  B " +
-                          " WHERE B.category_id = C.category_id " +
-                          "   AND B.lecture_name like :lectureName " +
-                          "   AND NOT EXISTS ( SELECT * " +
-                          "                      FROM course_registration A " +
-                          "                     WHERE A.lecture_id = B.lecture_id ) " +
-                          " ORDER BY 6 desc, 1 ";
+                "     , B.lecture_name " +
+                "     , B.education_period_start_date " +
+                "     , B.education_period_end_date " +
+                "     , C.category_name " +
+                "     , count(*) as course_registration_cnt " +
+                "  FROM category C " +
+                "     , lecture  B " +
+                "     , course_registration A " +
+                " WHERE A.lecture_id  = B.lecture_id " +
+                "   AND B.category_id = C.category_id " +
+                "   AND B.lecture_name like :lectureName " +
+                " GROUP BY " +
+                "       B.lecture_id " +
+                "     , B.lecture_name " +
+                "     , B.education_period_start_date " +
+                "     , B.education_period_end_date " +
+                "     , C.category_name " +
+                " UNION ALL " +
+                "SELECT B.lecture_id " +
+                "     , B.lecture_name " +
+                "     , B.education_period_start_date " +
+                "     , B.education_period_end_date " +
+                "     , C.category_name " +
+                "     , 0 as course_registration_cnt " +
+                "  FROM category C " +
+                "     , lecture  B " +
+                " WHERE B.category_id = C.category_id " +
+                "   AND B.lecture_name like :lectureName " +
+                "   AND NOT EXISTS ( SELECT * " +
+                "                      FROM course_registration A " +
+                "                     WHERE A.lecture_id = B.lecture_id ) " +
+                " ORDER BY 6 desc, 1 ";
         Query query = entityManager.createNativeQuery(sqlQuery);
         query.setParameter("lectureName", lectureName); // 전체는 %, 조건이 있으면 %조건%
 
@@ -307,37 +334,37 @@ public class CourseRegistrationService {
 
     public List<Object[]> executeNativeQueryDto1(String userId) {
         String sqlQuery = "select 'A'        as lecture_status_id " +
-                          "     , '수강신청' as lecture_status_name " +
-                          "     , count(*)   as lecture_status_count " +
-                          "     , 0          as sort_seq " +
-                          "  from course_registration a " +
-                          " where a.user_id = :userId " +
-                          " union all " +
-                          "select a.lecture_status as lecture_status_id " +
-                          "     , b.code_name      as lecture_status_name " +
-                          "     , count(*)         as category_count " +
-                          "     , b.sort_seq       as sort_seq " +
-                          "  from code_class_detail   b " +
-                          "     , course_registration a " +
-                          " where b.code_class = 'LECTURE_STATUS' " +
-                          "   and a.lecture_status = b.code " +
-                          "   and a.user_id = :userId " +
-                          " group by " +
-                          "       a.lecture_status " +
-                          "     , b.code_name " +
-                          "     , b.sort_seq " +
-                          " union all " +
-                          "select a.code      as lecture_status_id " +
-                          "     , a.code_name as lecture_status_name " +
-                          "     , 0           as category_count " +
-                          "     , a.sort_seq  as sort_seq " +
-                          "  from code_class_detail a " +
-                          " where a.code_class = 'LECTURE_STATUS' " +
-                          "   and not exists ( select * " +
-                          "                      from course_registration b " +
-                          "                     where b.user_id = :userId " +
-                          "                       and b.lecture_status = a.code ) " +
-                          " order by 4 ";
+                "     , '수강신청' as lecture_status_name " +
+                "     , count(*)   as lecture_status_count " +
+                "     , 0          as sort_seq " +
+                "  from course_registration a " +
+                " where a.user_id = :userId " +
+                " union all " +
+                "select a.lecture_status as lecture_status_id " +
+                "     , b.code_name      as lecture_status_name " +
+                "     , count(*)         as category_count " +
+                "     , b.sort_seq       as sort_seq " +
+                "  from code_class_detail   b " +
+                "     , course_registration a " +
+                " where b.code_class = 'LECTURE_STATUS' " +
+                "   and a.lecture_status = b.code " +
+                "   and a.user_id = :userId " +
+                " group by " +
+                "       a.lecture_status " +
+                "     , b.code_name " +
+                "     , b.sort_seq " +
+                " union all " +
+                "select a.code      as lecture_status_id " +
+                "     , a.code_name as lecture_status_name " +
+                "     , 0           as category_count " +
+                "     , a.sort_seq  as sort_seq " +
+                "  from code_class_detail a " +
+                " where a.code_class = 'LECTURE_STATUS' " +
+                "   and not exists ( select * " +
+                "                      from course_registration b " +
+                "                     where b.user_id = :userId " +
+                "                       and b.lecture_status = a.code ) " +
+                " order by 4 ";
         Query query = entityManager.createNativeQuery(sqlQuery);
         query.setParameter("userId", userId);
 

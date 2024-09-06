@@ -2,7 +2,6 @@ package com.dw.lms.controller;
 
 import com.dw.lms.dto.CourseEnrollCountDto;
 import com.dw.lms.dto.CourseLectureCountDto;
-import com.dw.lms.dto.LectureProgressQueryDto;
 import com.dw.lms.dto.LectureStatusCountDto;
 import com.dw.lms.model.Course_registration;
 import com.dw.lms.service.CourseRegistrationService;
@@ -18,6 +17,13 @@ import java.util.List;
 public class CourseRegistrationController {
     @Autowired
     CourseRegistrationService courseRegistrationService;
+
+    @GetMapping("/course/registration/{userId}/{lectureId}")
+    public ResponseEntity<List<Course_registration>> getCourseRegistraionById(
+            @PathVariable String userId, @PathVariable String lectureId) {
+        List<Course_registration> courseRegistrations = courseRegistrationService.getCourseRegistraionById(userId, lectureId);
+        return ResponseEntity.ok(courseRegistrations);
+    }
 
     @DeleteMapping("/course/delCourseRegistration/{userId}/{lectureId}")
     public void deleteCourseRegistration(@PathVariable String userId, @PathVariable String lectureId) {
